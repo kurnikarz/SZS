@@ -10,11 +10,13 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("/SuperAdmin", name="super_admin")
      */
-    public function index()
-    {
-        return $this->render('SuperAdmin/index.html.twig', [
+
+
+    public function index(){
+
+        return $this->render('SuperAdmin/index.html.twig',
+        [
             'controller_name' => 'SuperAdminController',
-            'name' => 'Marcin Gałązka'
         ]);
     }
 }

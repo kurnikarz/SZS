@@ -1,13 +1,14 @@
-## Projekt zespo≥owy - NETTOM 2020
+## Projekt zespo≈Çowy - NETTOM 2020
 
 ### Uczestnicy : 
-- Marcin Ga≥azka - Branch marcin
-- Wiktor DereÒ - Branch wiktor
+- Marcin Ga≈Çazka - Branch marcin
+- Wiktor Dere≈Ñ - Branch wiktor
 - Albert Godlewski - Branch albert
 - Artur Dymkowski - Branch artur
 
 ### Komendy
 
 `git branch SWOJA_NAZWA`  - stworzenie nowego brancha  
-`git checkout NAZWA`  - przejúcie na brancha o nazwie **NAZWA**  
+`git checkout NAZWA`  - przej≈õcie na brancha o nazwie **NAZWA**  
 `git push -u origin NAZWA` - push na branch **NAZWA**, nie na mastera
+`git fetch https://github.com/Galazkit/SZS.git marcin:marcin` - pobranie repo SZS, i z niego branch marcina:u nas lokanie zapisany :marcin

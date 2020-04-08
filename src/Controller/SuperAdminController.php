@@ -33,6 +33,7 @@ class SuperAdminController extends AbstractController
         'UserName' => $user->getUser()->getUsername(),
         
         'user1' =>$user1,
+		'test' => 'testowe',
         ));
     }
 }

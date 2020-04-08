@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SuperAdminController!{% endblock %}
+{% block body %}
+<div class="main text-center mt-2">
+    <h2>{{ controller_name }}</h2>
+</div>
+{% if test %}
+     {% for t in test %}
+         <td>{{ t.id }}</td>
+         <td>{{ t.username }}</td>
+    {% endfor %}
+{% endif %}
+
+{{ UserName }}
+{{ user1 }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+   <script src="{{ asset('js/main.js') }}"></script>
+{% endblock %}

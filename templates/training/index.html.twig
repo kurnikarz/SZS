@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Szkolenia{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {{ render(controller(
+                'App\\Controller\\SearchController::searchBar'
+            ))}}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/szkolenia/new" class="btn btn-success">Dodaj szkolenie</a>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% if trainings %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Cena</th>
+            <th scope="col">Dostępność</th>
+            <th scope="col">Szczegóły</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for training in trainings %}
+            <tr>
+                <td>{{ training.name }}</td>
+                {% if training.free == 1 %}
+                    <td></td>
+                    <td>Darmowe</td>
+                {% else %}
+                    <td>{{ training.price }} PLN</td>
+                    <td>Płatne</td>
+                {% endif %}
+                <td><a href="/szkolenia/{{ training.id }}" class="btn btn-info">Szczegóły</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        {% else %}
+            <p class="text-danger">Brak dostępnych szkoleń</p>
+        {% endif %}
+    </table>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}

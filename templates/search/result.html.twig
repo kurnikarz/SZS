@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title %}Wyniki wyszukiwania{% endblock %}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{ render(controller(
+                    'App\\Controller\\SearchController::searchBar'
+                ))}}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                {% if training %}
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nazwa</th>
+                            <th scope="col">Cena</th>
+                            <th scope="col">Dostępność</th>
+                            <th scope="col">Szczegóły</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for training in training %}
+                            <tr>
+                                <td>{{ training.name }}</td>
+                                {% if training.free == 1 %}
+                                    <td></td>
+                                    <td>Darmowe</td>
+                                {% else %}
+                                    <td>{{ training.price }} PLN</td>
+                                    <td>Płatne</td>
+                                {% endif %}
+                                <td><a href="/szkolenia/{{ training.id }}" class="btn btn-info">Szczegóły</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <a class="btn btn-info" href="/szkolenia">Cofnij</a>
+                {% else %}
+                    <p class="text-danger">Nie znaleziono szkoleń !</p>
+                    <a class="btn btn-info" href="/szkolenia">Cofnij</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

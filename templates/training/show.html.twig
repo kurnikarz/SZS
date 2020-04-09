@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ training.name }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Szczegóły szkolenia</h3>
+            </div>
+        </div>
+        <hr>
+        <br>
+        <div class="control-group row">
+            <label class=" col-sm-3 control-label">Nazwa szkolenia</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px;">
+                    {{training.name}}
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group row">
+            <label class="col-sm-3 control-label">Opis</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px; height: 200px;">
+                    {{training.description}}
+                </label>
+            </div>
+        </div>
+
+        <!-- TU DADA -->
+
+        <div class="control-group row">
+            <label class="col-sm-3 control-label">Cena</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px;">
+                    {% if training.free == 0 %}
+                        {{training.price}} PLN
+                    {% endif %}
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group row">
+            <label class="col-sm-3 control-label">Dostępność</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px;">
+                    {% if training.free == 0 %}
+                        Płatne
+                    {% else %}
+                        Darmowe
+                    {% endif %}
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group row">
+            <label class="col-sm-3 control-label">Prowadzący</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px;">
+                    {{trainer.name}} {{ trainer.surname }}
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <a class="btn btn-info" href="/szkolenia">Cofnij</a>
+        </div>
+    </div>
+{% endblock %}

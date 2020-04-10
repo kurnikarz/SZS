@@ -23,14 +23,23 @@ class SuperAdminController extends AbstractController
         $user1 = $this->container->get('security.token_storage')
         ->getToken()->getUser()->getUsername();
 
-        $test = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
+        $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
+    //Counting records
+        $em = $this->getDoctrine()->getManager();
+        $RepSA = $em->getRepository(SuperAdmin::class);
+        $TotalRots = $RepSA
+            ->createQueryBuilder('total')
+            ->select('count(total.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
 
         return $this->render('SuperAdmin/index.html.twig',array(
-        'test' => $test,
+        'SARepo' => $SARepo,
 
         'controller_name' => 'SuperAdminController',
 
-        'UserName' => $user->getUser()->getUsername(),
+        'RootName' => $user->getUser()->getUsername(),
+        'TotalRots' => $TotalRots,
         
         'user1' =>$user1,
         ));

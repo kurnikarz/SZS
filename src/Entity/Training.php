@@ -24,7 +24,7 @@ class Training
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", length=191)
      */
     private $description;
 

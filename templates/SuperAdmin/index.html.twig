@@ -1,19 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}SuperAdminController!{% endblock %}
-{% block body %}
-<div class="main text-center mt-2">
-    <h2>{{ controller_name }}</h2>
+{% block body  %}
+{% include asset('inc/navbarSA.html.twig') %}
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-12 bg-light text-center m-auto p-1 ">
+            <p class="text-danger font-weight-bold h5"> Panel Root'a</p>
+            <p class="text-info">Jesteś zalogowany jako : <i class="text-danger font-weight-bold">{{ RootName }}</i>. Masz możliwość zarządzania całym systemem
+            </p>
+        </div>
+
+        <div class="col-md-12 bg-light mt-2">
+            <p class="text-center font-weight-bold h5">Zarządzaj</p>
+        </div>
+            <div class="col-md-4 mt-1 bg-light">
+                    <table id="Roots" class="table table-striped">
+                        <thead>
+                        <p class="text-center">Root's</p>
+                            <tr>
+                                <th>ID.</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for root in SARepo %}
+                            <tr>
+                                <td>{{ root.id }}</td>
+                                <td>{{ root.username }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                <p class="text-info">Ilość rekordów : <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
+                </div>
+        
+    </div>
 </div>
-{% if test %}
+{# {% if test %}
      {% for t in test %}
          <td>{{ t.id }}</td>
          <td>{{ t.username }}</td>
     {% endfor %}
 {% endif %}
 
-{{ UserName }}
-{{ user1 }}
+{{ user1 }} #}
 
 {% endblock %}
 {% block javascripts %}

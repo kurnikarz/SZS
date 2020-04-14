@@ -1,1 +1,1 @@
-console.log("żyję");
+console.log("1");

@@ -19,12 +19,14 @@ class SuperAdminController extends AbstractController
      *
      */
     public function SuperAdminPage(Security $user){
+        // SuperAdmin repository
+        $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
 
+        //Get_Root_Name
         $user1 = $this->container->get('security.token_storage')
         ->getToken()->getUser()->getUsername();
 
-        $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
-    //Counting records
+        //Counting records
         $em = $this->getDoctrine()->getManager();
         $RepSA = $em->getRepository(SuperAdmin::class);
         $TotalRots = $RepSA
@@ -35,12 +37,9 @@ class SuperAdminController extends AbstractController
 
         return $this->render('SuperAdmin/index.html.twig',array(
         'SARepo' => $SARepo,
-
         'controller_name' => 'SuperAdminController',
-
         'RootName' => $user->getUser()->getUsername(),
         'TotalRots' => $TotalRots,
-        
         'user1' =>$user1,
         ));
     }

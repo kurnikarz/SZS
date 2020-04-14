@@ -43,4 +43,20 @@ class SuperAdminController extends AbstractController
         'user1' =>$user1,
         ));
     }
+
+    /**
+     * @Route("SuperAdmin/crudSA", name="super_admin_crud")
+     *
+     */
+    public function SuperAdminPage_CRUD(Security $user){
+        //Get_Root_Name
+        $user1 = $this->container->get('security.token_storage')
+        ->getToken()->getUser()->getUsername();
+
+    return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
+        'controller_name' => 'SuperAdminController_CRUD',
+        'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+
 }

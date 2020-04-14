@@ -1,2 +1,12 @@
 
 
+{% extends 'base.html.twig' %}
+
+{% block title %}SA_CRUD{% endblock %}
+{% block body  %}
+{% include asset('inc/navbarSA.html.twig') %}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

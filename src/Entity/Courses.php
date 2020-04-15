@@ -22,9 +22,9 @@ class Courses
     private $name;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255)
      */
-    private $date;
+    private $place;
 
     /**
      * @ORM\Column(type="integer")
@@ -48,14 +48,14 @@ class Courses
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getPlace(): ?string
     {
-        return $this->date;
+        return $this->place;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setPlace(string $place): self
     {
-        $this->date = $date;
+        $this->place = $place;
 
         return $this;
     }

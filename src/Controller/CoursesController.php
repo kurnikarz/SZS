@@ -14,8 +14,8 @@ class CoursesController extends AbstractController{
      */
     public function index(){
 
-        $courses = $this->getDoctrine()->getRepository(Courses::class)->findAll();
+        //$courses = $this->getDoctrine()->getRepository(Courses::class)->findAll();
 
-        return $this->render('courses/courses.html.twig', array('courses' => $courses));
+        return $this->render('courses/courses.html.twig');
     }
 }

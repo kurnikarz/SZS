@@ -1,6 +1,6 @@
 security:
     encoders:
-        App\Entity\Trainer:
+        App\Entity\SuperAdmin:
             algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
@@ -8,7 +8,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Trainer
+                class: App\Entity\SuperAdmin
                 property: username
     firewalls:
         dev:
@@ -19,7 +19,7 @@ security:
             provider: app_user_provider
             guard:
                 authenticators:
-                    - App\Security\TrainerAunthenticatorAuthenticator
+                    - App\Security\AppSuperAdminAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -35,4 +35,8 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/trainer, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/SuperAdmin, roles: ROLE_SUPERADMIN }
+        #- { path: ^/loginSA, roles: ROLE_SUPERADMIN }
+        - { path: ^/registerSA, roles: ROLE_SUPERADMIN }
+

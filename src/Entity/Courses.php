@@ -12,19 +12,19 @@ class Courses
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", length=191)
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=191)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="date")
      */
-    private $place;
+    private $date;
 
     /**
      * @ORM\Column(type="integer")
@@ -48,14 +48,14 @@ class Courses
         return $this;
     }
 
-    public function getPlace(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->place;
+        return $this->date;
     }
 
-    public function setPlace(string $place): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->place = $place;
+        $this->date = $date;
 
         return $this;
     }

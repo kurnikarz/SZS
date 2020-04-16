@@ -48,7 +48,7 @@ class TrainerRegisterController extends AbstractController
             $em->persist($trainer);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('app_login'));
+            return $this->redirect($this->generateUrl('trainer'));
         }
 
 

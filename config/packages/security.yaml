@@ -39,4 +39,5 @@ security:
         - { path: ^/SuperAdmin, roles: ROLE_SUPERADMIN }
         #- { path: ^/loginSA, roles: ROLE_SUPERADMIN }
         - { path: ^/registerSA, roles: ROLE_SUPERADMIN }
+        - { path: ^/trainer, roles: Trainer }
 

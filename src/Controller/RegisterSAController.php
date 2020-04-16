@@ -47,11 +47,11 @@ class RegisterSAController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em -> persist($user);
             $em -> flush();
-
+            //przekierowanie do SecurityControllerSuperAdminController
             return $this->redirect($this->generateUrl('app_loginSA'));
         }
 
-    return $this->render('registerSA/registerSA.html.twig',[
+    return $this->render('SuperAdmin/CRUD/registerSA.html.twig',[
         'form' => $form->createView()
     ]);
     }

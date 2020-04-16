@@ -5,7 +5,7 @@
 
 {% block body %}
 <div class="container">
-    <div class="md-6 mt-2 text-center">
+    <div class="col-sm-6 text-center bg-light mx-auto mt-3 p-1">
         <form method="post">
              {% if error %}
                 <div class="alert alert-danger">
@@ -17,7 +17,7 @@
                      Jesteś zalogowany jako : {{ app.user.username }}, <a href="{{ path('app_logout') }}">Wyloguj</a>
                 </div>
             {% endif %}
-            <h1 class="h3 mb-3 font-weight-normal">ROOT Panel</h1>
+            <h1 class="h3 mb-3 font-weight-normal text-danger">ROOT Panel</h1>
             <label for="inputUsername">Username</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
             <label for="inputPassword">Password</label>

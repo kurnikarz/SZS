@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+    {% block title %}Register ROOT{% endblock %}
+{% endblock %}
+
+{% block body %}
+{% include asset('inc/navbarSA.html.twig') %}
+<div class="container">
+    <div class="col-sm-6 mx-auto mt-3 p-2 bg-light">
+    <p class="text-danger text-center font-weight-bold">Dodaj nowego użytkownika ROOT</p>
+    {{ form(form) }}
+    </div>
+</div>
+{% endblock %}

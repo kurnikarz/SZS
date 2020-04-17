@@ -14,7 +14,7 @@ use App\Entity\Trainer;
 class TrainerRegisterController extends AbstractController
 {
     /**
-     * @Route("/trainer/register", name="trainer_register")
+     * @Route("/registerT", name="trainer_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passEncoder)
     {

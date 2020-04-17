@@ -31,6 +31,11 @@ class Courses
      */
     private $trainer;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $place;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Courses
     public function setTrainer(int $trainer): self
     {
         $this->trainer = $trainer;
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(string $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }

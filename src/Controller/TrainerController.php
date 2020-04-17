@@ -14,7 +14,7 @@ class TrainerController extends AbstractController
     public function index()
     {
         return $this->render('trainer/index.html.twig', [
-            'controller_name' => 'Trainer',
+            'controller_name' => 'trainer',
         ]);
     }
 }

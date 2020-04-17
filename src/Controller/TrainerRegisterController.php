@@ -14,7 +14,7 @@ use App\Entity\Trainer;
 class TrainerRegisterController extends AbstractController
 {
     /**
-     * @Route("/trainer/register", name="trainer_register")
+     * @Route("/registerT", name="trainer_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passEncoder)
     {
@@ -48,7 +48,7 @@ class TrainerRegisterController extends AbstractController
             $em->persist($trainer);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('app_login'));
+            return $this->redirect($this->generateUrl('trainer'));
         }
 
 

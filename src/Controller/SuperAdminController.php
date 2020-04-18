@@ -30,25 +30,16 @@ class SuperAdminController extends AbstractController
         // SuperAdmin repository
         $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
 
-        //Get_Root_Name
-        $user1 = $this->container->get('security.token_storage')
-        ->getToken()->getUser()->getUsername();
-
         //Counting records
         $em = $this->getDoctrine()->getManager();
         $RepSA = $em->getRepository(SuperAdmin::class);
-        $TotalRots = $RepSA
-            ->createQueryBuilder('total')
-            ->select('count(total.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
+        $TotalRots = $RepSA->createQueryBuilder('total')->select('count(total.id)')->getQuery()->getSingleScalarResult();
 
         return $this->render('SuperAdmin/index.html.twig',array(
-        'SARepo' => $SARepo,
         'controller_name' => 'SuperAdminController',
         'RootName' => $user->getUser()->getUsername(),
+        'SARepo' => $SARepo,
         'TotalRots' => $TotalRots,
-        'user1' =>$user1,
         ));
     }
 

@@ -17,13 +17,15 @@
         </thead>
         <tbody>
             {% for course in courses %}
-                {%if app.user.id == course.trainer %}
+                {% if app.user.id == course.trainer %}
                     <tr>
                         <td>{{ course.name }}</td>
         
                         <td>{{ course.place }}</td>
     
                         <td>{{ course.time|date('d-m-Y H:i')}}</td>
+
+                        <td><a href="/members" type="button" class="btn btn-info">Show members</td>
 
                     </tr>
                 {% endif %}

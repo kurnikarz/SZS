@@ -18,4 +18,6 @@ class CoursesController extends AbstractController{
 
         return $this->render('courses/courses.html.twig', array('courses' => $courses));
     }
+
+
 }

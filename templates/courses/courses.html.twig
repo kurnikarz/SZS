@@ -6,6 +6,7 @@
 {{ include('inc/navbarT.html.twig')}}
 
 {% if courses %}
+<h1>Details of courses</h1>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -24,7 +25,6 @@
     
                         <td>{{ course.time|date('d-m-Y H:i')}}</td>
 
-                        <td><button type="button" class="btn btn-success">Show more</button></td>
                     </tr>
                 {% endif %}
             {% endfor %}

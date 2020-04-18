@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkExtraBundle\Configuration\Method;
 use App\Entity\Courses;
+use App\Entity\Trainer;
+
 
 class CoursesController extends AbstractController{
 

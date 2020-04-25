@@ -36,22 +36,22 @@ class SuperAdminRepository extends ServiceEntityRepository implements PasswordUp
         $this->_em->flush();
     }
 
-    // /**
-    //  * @return SuperAdmin[] Returns an array of SuperAdmin objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    //  /**
+    //   * @return SuperAdmin[] Returns an array of SuperAdmin objects
+    //   */
+
+    // public function findByExampleField($value)
+    // {
+    //     return $this->createQueryBuilder('s')
+    //         ->andWhere('s.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('s.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
 
     /*
     public function findOneBySomeField($value): ?SuperAdmin

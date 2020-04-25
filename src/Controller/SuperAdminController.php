@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\SuperAdmin;
 
 
+use App\Repository\SuperAdminRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,16 +25,13 @@ class SuperAdminController extends AbstractController
 
     /**
      * @Route("/SuperAdmin", name="super_admin_page")
-     *
+     * @param SuperAdminRepository $SAR
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function SuperAdminPage(Security $user){
+    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR){
         // SuperAdmin repository
-        $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
-
-        //Counting records
-        $em = $this->getDoctrine()->getManager();
-        $RepSA = $em->getRepository(SuperAdmin::class);
-        $TotalRots = $RepSA->createQueryBuilder('total')->select('count(total.id)')->getQuery()->getSingleScalarResult();
+        $SARepo = $SAR->findAll();
+        $TotalRots = $SAR->CountRoot();
 
         return $this->render('SuperAdmin/index.html.twig',array(
         'controller_name' => 'SuperAdminController',
@@ -42,15 +40,11 @@ class SuperAdminController extends AbstractController
         'TotalRots' => $TotalRots,
         ));
     }
-
     /**
      * @Route("SuperAdmin/crudSA", name="super_admin_crud")
      *
      */
     public function SuperAdminPage_CRUD(Security $user){
-        //Get_Root_Name
-        $user1 = $this->container->get('security.token_storage')
-        ->getToken()->getUser()->getUsername();
 
     return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
         'controller_name' => 'SuperAdminController_CRUD',

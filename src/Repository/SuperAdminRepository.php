@@ -23,7 +23,7 @@ class SuperAdminRepository extends ServiceEntityRepository implements PasswordUp
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * Used to upgrade (rehash) the user's password automatically over time.v
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -35,6 +35,16 @@ class SuperAdminRepository extends ServiceEntityRepository implements PasswordUp
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+    public function CountRoot(){
+        $qb = $this->createQueryBuilder('p')
+            ->setMaxResults(2)
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+
 
     //  /**
     //   * @return SuperAdmin[] Returns an array of SuperAdmin objects

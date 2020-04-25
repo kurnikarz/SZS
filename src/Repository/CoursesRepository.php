@@ -19,6 +19,25 @@ class CoursesRepository extends ServiceEntityRepository
         parent::__construct($registry, Courses::class);
     }
 
+    public function CountCourse(){
+        $qb = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+
+    public function GetCoursePreview($MaxCourses){
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderBy('u.id')
+            ->setFirstResult(0)
+            ->setMaxResults($MaxCourses)
+            ->getQuery()
+            ->getArrayResult();
+        return $query;
+    }
+
     // /**
     //  * @return Courses[] Returns an array of Courses objects
     //  */

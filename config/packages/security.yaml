@@ -5,10 +5,10 @@ security:
         App\Entity\Trainer:
             algorithm: auto
 
-
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        app_user_provider:
+        # used to reload user from session & other features (e.g. switch_user)
+        Trainer:
             entity:
                 class: App\Entity\Trainer
                 property: username
@@ -16,13 +16,14 @@ security:
             entity:
                 class: App\Entity\SuperAdmin
                 property: username
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
-            provider: app_user_provider
+            provider: Trainer
             guard:
                 authenticators:
                     - App\Security\AppSuperAdminAuthenticator

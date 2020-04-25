@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             {% for member in members %}
-                {% if member.id == course.id %}
+                {% if member.training_id == courses.id %}
                     <tr>
                         <td>{{ member.email }}</td>
         

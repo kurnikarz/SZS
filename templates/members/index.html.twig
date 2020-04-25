@@ -18,17 +18,19 @@
         </thead>
         <tbody>
             {% for member in members %}
-                {% if member.id == course.id %}
-                    <tr>
-                        <td>{{ member.email }}</td>
+                {% for training in trainings %}
+                    {% if app.user.id == training.trainer.id %} 
+                        <tr>
+                            <td>{{ member.email }}</td>
+            
+                            <td>{{ member.name }}</td>
         
-                        <td>{{ member.name }}</td>
-    
-                        <td>{{ member.surname}}</td>
+                            <td>{{ member.surname}}</td>
 
-                        <td>{{ member.number }}</td>
-                    </tr>
-                    {% endif %}
+                            <td>{{ member.number }}</td>
+                        </tr>
+                        {% endif %} 
+                    {% endfor %}
             {% endfor %}
         </tbody>
     </table>

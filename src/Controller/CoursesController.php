@@ -19,14 +19,4 @@ class CoursesController extends AbstractController{
 
         return $this->render('courses/courses.html.twig', array('courses' => $courses));
     }
-
-    /**
-     * Route("/courses/{id}", name="members")
-     * @Method({"GET"})
-     */
-    public function show($id){
-        $members = $this->getDoctrine()->getRepository(Member::class)->find($id);
-
-        return $this->render('courses/members.html.twig', array('members' => $members));
-    }
 }

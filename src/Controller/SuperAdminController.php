@@ -5,6 +5,7 @@ use App\Entity\SuperAdmin;
 
 
 use App\Repository\SuperAdminRepository;
+use App\Repository\TrainerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,16 +29,21 @@ class SuperAdminController extends AbstractController
      * @param SuperAdminRepository $SAR
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR){
+    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR){
         // SuperAdmin repository
-        $SARepo = $SAR->findAll();
+        // $SARepo = $SAR->findAll();
+        $GRP = $SAR->GetRootPreview(5);
         $TotalRots = $SAR->CountRoot();
+        $GTP = $TR->GetTrainerPreview(5);
+        $TotalTrainers = $TR->CountTrainer();
 
         return $this->render('SuperAdmin/index.html.twig',array(
         'controller_name' => 'SuperAdminController',
         'RootName' => $user->getUser()->getUsername(),
-        'SARepo' => $SARepo,
         'TotalRots' => $TotalRots,
+            'TotalTrainers' => $TotalTrainers,
+            'GetRootPreview' => $GRP,
+              'GetTrainerPreview' => $GTP,
         ));
     }
     /**

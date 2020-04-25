@@ -35,6 +35,25 @@ class TrainerRepository extends ServiceEntityRepository implements PasswordUpgra
         $this->_em->persist($user);
         $this->_em->flush();
     }
+    public function CountTrainer(){
+        $qb = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+    public function GetTrainerPreview($MaxTrainers){
+        $query = $this->createQueryBuilder('u')
+            ->select('
+            u.id,
+            u.username
+            ')
+            ->setFirstResult(0)
+            ->setMaxResults($MaxTrainers)
+            ->getQuery()
+            ->getArrayResult();
+        return $query;
+    }
 
     // /**
     //  * @return Trainer[] Returns an array of Trainer objects

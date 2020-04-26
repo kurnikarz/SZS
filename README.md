@@ -11,3 +11,5 @@
 `git branch SWOJA_NAZWA`  - stworzenie nowego brancha  
 `git checkout NAZWA`  - przejœcie na brancha o nazwie **NAZWA**  
 `git push -u origin NAZWA` - push na branch **NAZWA**, nie na mastera
+
+![SZS](szs.png)

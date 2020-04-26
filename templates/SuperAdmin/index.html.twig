@@ -15,28 +15,74 @@
         <div class="col-md-12 bg-light mt-2">
             <p class="text-center font-weight-bold h5">Zarządzaj</p>
         </div>
+        <!--ROOT SECTION -->
             <div class="col-md-4 mt-1 bg-light">
                     <table id="Roots" class="table table-striped">
                         <thead>
                         <p class="text-center">Root's</p>
                             <tr>
-                                <th>ID.</th>
+                                <th>Id.</th>
                                 <th>Name</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% for root in SARepo %}
+                        {% for root in GetRootPreview %}
                             <tr>
                                 <td>{{ root.id }}</td>
                                 <td>{{ root.username }}</td>
                             </tr>
                         {% endfor %}
-
                         </tbody>
                     </table>
-                <p class="text-info">Ilość rekordów : <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
+                <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
+                <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
                 </div>
-        
+
+ <!--TRAINER SECTION -->
+        <div class="col-md-4 mt-1 bg-light">
+            <table id="Roots" class="table table-striped">
+                <thead>
+                <p class="text-center">Trainers's</p>
+                <tr>
+                    <th>Id.</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trainer in GetTrainerPreview %}
+                    <tr>
+                        <td>{{ trainer.id }}</td>
+                        <td>{{ trainer.username }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
+            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+        </div>
+
+        <!--TRAINER SECTION -->
+        <div class="col-md-4 mt-1 bg-light">
+            <table id="Roots" class="table table-striped">
+                <thead>
+                <p class="text-center">Trainers's</p>
+                <tr>
+                    <th>Id.</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for trainer in GetTrainerPreview %}
+                    <tr>
+                        <td>{{ trainer.id }}</td>
+                        <td>{{ trainer.username }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
+            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+        </div>
     </div>
 </div>
 {% endblock %}

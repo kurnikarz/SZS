@@ -4,6 +4,8 @@ namespace App\Controller;
 use App\Entity\SuperAdmin;
 
 
+use App\Repository\SuperAdminRepository;
+use App\Repository\TrainerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,33 +26,31 @@ class SuperAdminController extends AbstractController
 
     /**
      * @Route("/SuperAdmin", name="super_admin_page")
-     *
+     * @param SuperAdminRepository $SAR
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function SuperAdminPage(Security $user){
+    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR){
         // SuperAdmin repository
-        $SARepo = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
-
-        //Counting records
-        $em = $this->getDoctrine()->getManager();
-        $RepSA = $em->getRepository(SuperAdmin::class);
-        $TotalRots = $RepSA->createQueryBuilder('total')->select('count(total.id)')->getQuery()->getSingleScalarResult();
+        // $SARepo = $SAR->findAll();
+        $GRP = $SAR->GetRootPreview(5);
+        $TotalRots = $SAR->CountRoot();
+        $GTP = $TR->GetTrainerPreview(5);
+        $TotalTrainers = $TR->CountTrainer();
 
         return $this->render('SuperAdmin/index.html.twig',array(
         'controller_name' => 'SuperAdminController',
         'RootName' => $user->getUser()->getUsername(),
-        'SARepo' => $SARepo,
         'TotalRots' => $TotalRots,
+            'TotalTrainers' => $TotalTrainers,
+            'GetRootPreview' => $GRP,
+              'GetTrainerPreview' => $GTP,
         ));
     }
-
     /**
      * @Route("SuperAdmin/crudSA", name="super_admin_crud")
      *
      */
     public function SuperAdminPage_CRUD(Security $user){
-        //Get_Root_Name
-        $user1 = $this->container->get('security.token_storage')
-        ->getToken()->getUser()->getUsername();
 
     return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
         'controller_name' => 'SuperAdminController_CRUD',

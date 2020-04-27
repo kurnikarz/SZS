@@ -18,27 +18,9 @@ class TrainingRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Training::class);
     }
-    public function CountTraining(){
-        $qb = $this->createQueryBuilder('p')
-            ->select('count(p.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-        return $qb;
-    }
-
-    public function GetTrainingPreview($Maxtrainings){
-        $query = $this->createQueryBuilder('u')
-            ->select('u')
-            ->orderBy('u.id')
-            ->setFirstResult(0)
-            ->setMaxResults($Maxtrainings)
-            ->getQuery()
-            ->getArrayResult();
-        return $query;
-    }
 
     // /**
-    //  * @return Trainings[] Returns an array of Trainings objects
+    //  * @return Training[] Returns an array of Training objects
     //  */
     /*
     public function findByExampleField($value)
@@ -55,7 +37,7 @@ class TrainingRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Trainings
+    public function findOneBySomeField($value): ?Training
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
@@ -65,23 +47,4 @@ class TrainingRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    /**
-     * @return Training[]
-     */
-    public function findTrainingByName($name): array
-    {
-
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT t
-            FROM App\Entity\Training t
-            WHERE t.name
-            LIKE :name'
-        )->setParameter('name','%'.$name.'%');
-
-        return $query->getResult();
-
-    }
 }

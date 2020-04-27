@@ -35,24 +35,6 @@ class MemberRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->persist($user);
         $this->_em->flush();
     }
-    public function CountMember(){
-        $qb = $this->createQueryBuilder('p')
-            ->select('count(p.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-        return $qb;
-    }
-
-    public function GetMemberPreview($MaxMembers){
-        $query = $this->createQueryBuilder('u')
-            ->select('u')
-            ->orderBy('u.id')
-            ->setFirstResult(0)
-            ->setMaxResults($MaxMembers)
-            ->getQuery()
-            ->getArrayResult();
-        return $query;
-    }
 
     // /**
     //  * @return Member[] Returns an array of Member objects

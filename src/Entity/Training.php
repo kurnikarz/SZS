@@ -19,12 +19,12 @@ class Training
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text", length=191)
+     * @ORM\Column(type="text")
      */
     private $description;
 
@@ -49,24 +49,18 @@ class Training
     private $free;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Trainer", inversedBy="relation")
-     */
-    private $trainer;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="relation")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Member", mappedBy="training")
      */
     private $members;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="training")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Trainer", inversedBy="trainings")
      */
-    private $member;
+    private $trainer;
 
     public function __construct()
     {
         $this->members = new ArrayCollection();
-        $this->member = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -146,18 +140,6 @@ class Training
         return $this;
     }
 
-    public function getTrainer(): ?Trainer
-    {
-        return $this->trainer;
-    }
-
-    public function setTrainer(?Trainer $trainer): self
-    {
-        $this->trainer = $trainer;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Member[]
      */
@@ -168,32 +150,33 @@ class Training
 
     public function addMember(Member $member): self
     {
-        if (!$this->member->contains($member)) {
-            $this->member[] = $member;
-            $member->setTraining($this);
-        }
 
+        if (!$this->members->contains($member)) {
+            $this->members[] = $member;
+            $member->addTraining($this);
+        }
         return $this;
     }
 
     public function removeMember(Member $member): self
     {
-        if ($this->member->contains($member)) {
-            $this->member->removeElement($member);
-            // set the owning side to null (unless already changed)
-            if ($member->getTraining() === $this) {
-                $member->setTraining(null);
-            }
+        if ($this->members->contains($member)) {
+            $this->members->removeElement($member);
+            $member->removeTraining($this);
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Member[]
-     */
-    public function getMember(): Collection
+    public function getTrainer(): ?trainer
     {
-        return $this->member;
+        return $this->trainer;
+    }
+
+    public function setTrainer(?trainer $trainer): self
+    {
+        $this->trainer = $trainer;
+
+        return $this;
     }
 }

@@ -53,9 +53,14 @@ class Trainer
         return $this->id;
     }
 
+
     public function getName(): ?string
     {
         return $this->name;
+    }
+    public function getUsername(): ?string
+    {
+        return $this->username;
     }
 
     public function setName(string $name): self
@@ -64,6 +69,7 @@ class Trainer
 
         return $this;
     }
+
 
     public function getSurname(): ?string
     {
@@ -81,6 +87,11 @@ class Trainer
     {
         return $this->email;
     }
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+
+    }
 
     public function setEmail(string $email): self
     {
@@ -89,9 +100,14 @@ class Trainer
         return $this;
     }
 
+
     public function getNumber(): ?string
     {
         return $this->number;
+    }
+    public function getPassword(): ?string
+    {
+        return $this->password;
     }
 
     public function setNumber(string $number): self

@@ -150,11 +150,11 @@ class Training
 
     public function addMember(Member $member): self
     {
+
         if (!$this->members->contains($member)) {
             $this->members[] = $member;
             $member->addTraining($this);
         }
-
         return $this;
     }
 

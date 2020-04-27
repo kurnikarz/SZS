@@ -82,10 +82,7 @@ class Member implements UserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
         return array();
     }
@@ -94,12 +91,9 @@ class Member implements UserInterface
     {
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -178,7 +172,6 @@ class Member implements UserInterface
 
         return $this;
     }
-
     public function removeTraining(training $training): self
     {
         if ($this->training->contains($training)) {

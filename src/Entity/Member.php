@@ -80,16 +80,9 @@ class Member implements UserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -99,12 +92,9 @@ class Member implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -167,12 +157,12 @@ class Member implements UserInterface
         return $this;
     }
 
-    public function getTraining(): ?training
+    public function getTraining(): ?Training
     {
         return $this->training;
     }
 
-    public function setTraining(?training $training): self
+    public function setTraining(?Training $training): self
     {
         $this->training = $training;
 

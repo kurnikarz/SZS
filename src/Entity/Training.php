@@ -168,8 +168,8 @@ class Training
 
     public function addMember(Member $member): self
     {
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
+        if (!$this->member->contains($member)) {
+            $this->member[] = $member;
             $member->setTraining($this);
         }
 
@@ -178,8 +178,8 @@ class Training
 
     public function removeMember(Member $member): self
     {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
+        if ($this->member->contains($member)) {
+            $this->member->removeElement($member);
             // set the owning side to null (unless already changed)
             if ($member->getTraining() === $this) {
                 $member->setTraining(null);

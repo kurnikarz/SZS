@@ -10,27 +10,25 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Email</th>
-                <th>name</th>
-                <th>surname</th>
-                <th>number</th>
+                <th>Phone number</th>
             </tr>
         </thead>
         <tbody>
             {% for member in members %}
-                {% for training in trainings %}
-                    {% if app.user.id == training.trainer.id %} 
-                        <tr>
-                            <td>{{ member.email }}</td>
-            
+                    {% if member.training.id == app.user.id %} 
+                                <tr>
                             <td>{{ member.name }}</td>
+            
+                            <td>{{ member.surname }}</td>
         
-                            <td>{{ member.surname}}</td>
+                            <td>{{ member.email}}</td>
 
                             <td>{{ member.number }}</td>
                         </tr>
-                        {% endif %} 
-                    {% endfor %}
+                    {% endif %}
             {% endfor %}
         </tbody>
     </table>

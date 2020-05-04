@@ -6,6 +6,7 @@ use App\Entity\SuperAdmin;
 
 use App\Repository\SuperAdminRepository;
 use App\Repository\TrainerRepository;
+use App\Repository\TrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,35 +30,27 @@ class SuperAdminController extends AbstractController
      * @param SuperAdminRepository $SAR
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR){
+    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR, TrainingRepository $trainingRepository){
         // SuperAdmin repository
         // $SARepo = $SAR->findAll();
         $GRP = $SAR->GetRootPreview(5);
         $TotalRots = $SAR->CountRoot();
         $GTP = $TR->GetTrainerPreview(5);
         $TotalTrainers = $TR->CountTrainer();
+        $GTRepositoryPreview = $trainingRepository->GetTrainingPreview(5);
+        $TotalTrainings = $trainingRepository->CountTraining();
 
         return $this->render('SuperAdmin/index.html.twig',array(
-        'controller_name' => 'SuperAdminController',
-        'RootName' => $user->getUser()->getUsername(),
-        'TotalRots' => $TotalRots,
+            'controller_name' => 'SuperAdminController',
+            'RootName' => $user->getUser()->getUsername(),
+            'TotalRots' => $TotalRots,
             'TotalTrainers' => $TotalTrainers,
             'GetRootPreview' => $GRP,
-              'GetTrainerPreview' => $GTP,
+            'GetTrainerPreview' => $GTP,
+            'GetTrainingPreview' =>$GTRepositoryPreview,
+            'TotalTrainings' =>$TotalTrainings,
         ));
     }
-    /**
-     * @Route("SuperAdmin/crudSA", name="super_admin_crud")
-     *
-     */
-    public function SuperAdminPage_CRUD(Security $user){
-
-    return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
-        'controller_name' => 'SuperAdminController_CRUD',
-        'RootName' => $user->getUser()->getUsername(),
-        ));
-    }
-
     /**
      * @Route("SuperAdmin/registerSA", name="app_registerSA")
      */
@@ -101,6 +94,27 @@ class SuperAdminController extends AbstractController
         'controller_name' => 'SuperAdminController_RegisterSA',
         'RootName' => $user->getUser()->getUsername(),
     ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA", name="super_admin_crud")
+     *
+     */
+    public function SuperAdminPage_CRUD(Security $user){
+
+        return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
+            'controller_name' => 'SuperAdminController_CRUD',
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/SACRUD", name="SA_CRUD", methods={"GET", "HEAD"})
+     */
+    public function SuperAdmin_CRUD(Security $user){
+
+        return $this->render('SuperAdmin/CRUD/SACRUD.html.twig',array(
+            'controller_name' => 'SuperAdminController_ROOT_CRUD',
+            'RootName' => $user->getUser()->getUsername(),
+        ));
     }
 
 }

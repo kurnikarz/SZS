@@ -64,8 +64,12 @@
                 </label>
             </div>
         </div>
-        <div class="form-actions">
-            <a class="btn btn-info" href="/szkolenia">Cofnij</a>
+
+        <div class="control-group row">
+            <label class="col-sm-3 control-label"><a class="btn btn-info" href="/szkolenia">Cofnij</a></label>
+            <div class="col-sm-3">
+                    <a class="btn btn-success" href="/szkolenia/join/{{ training.id }}">Zapisz się na szkolenie</a>
+            </div>
         </div>
     </div>
 {% endblock %}

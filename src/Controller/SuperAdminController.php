@@ -110,9 +110,23 @@ class SuperAdminController extends AbstractController
      * @Route("SuperAdmin/crudSA/SACRUD", name="SA_CRUD", methods={"GET", "HEAD"})
      */
     public function SuperAdmin_CRUD(Security $user){
+        $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
 
         return $this->render('SuperAdmin/CRUD/SACRUD.html.twig',array(
             'controller_name' => 'SuperAdminController_ROOT_CRUD',
+            'Roots' => $roots,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/SACRUD/show/{id}", name="SA_CRUD_Show")
+     */
+    public function SuperAdmin_CRUD_Show($id, Security $user){
+        $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->find($id);
+
+        return $this->render('SuperAdmin/CRUD/SACRUD_show.html.twig',array(
+            'controller_name' => 'SuperAdminController_ROOT_CRUD_SHOW',
+            'Roots' => $roots,
             'RootName' => $user->getUser()->getUsername(),
         ));
     }

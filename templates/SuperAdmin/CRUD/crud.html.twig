@@ -4,7 +4,21 @@
 {% block title %}SA_CRUD{% endblock %}
 {% block body  %}
 {% include asset('inc/navbarSA.html.twig') %}
-
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 bg-light text-center mt-2 p-3">
+                <p class="text-danger font-weight-bold h5"> CRUD systemu</p>
+            </div>
+            <div class="col-sm-4 bg-light mt-1 text-center">
+                <h5>Zarządzaj rootami</h5>
+                <a href="{{ asset('SuperAdmin/crudSA/SACRUD') }}">Edit</a>
+            </div>
+            <div class="col-sm-3">
+                <h5>Zarządzaj Szkoleniowacami</h5>
+            </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

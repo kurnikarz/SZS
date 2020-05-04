@@ -52,6 +52,7 @@ class MemberRepository extends ServiceEntityRepository implements PasswordUpgrad
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
 
     // /**

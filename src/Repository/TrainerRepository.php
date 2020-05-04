@@ -53,6 +53,7 @@ class TrainerRepository extends ServiceEntityRepository implements PasswordUpgra
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
 
     // /**

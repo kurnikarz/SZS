@@ -35,6 +35,7 @@ class TrainingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
 
     // /**

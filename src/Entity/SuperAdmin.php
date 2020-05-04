@@ -38,14 +38,9 @@ class SuperAdmin implements UserInterface
         return $this->id;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return (string) $this->username;
+        return $this->username;
     }
 
     public function setUsername(string $username): self
@@ -55,16 +50,17 @@ class SuperAdmin implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
+<<<<<<< HEAD
+        return $this->roles;
+=======
         $roles = $this->roles;
         // guarantee every user at least has ROLE_SUPERADMIN
         $roles[] = 'ROLE_SUPERADMIN';
 
         return array_unique($roles);
+>>>>>>> master
     }
 
     public function setRoles(array $roles): self
@@ -74,12 +70,9 @@ class SuperAdmin implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self

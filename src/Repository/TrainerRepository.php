@@ -43,7 +43,7 @@ class TrainerRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('u')
             ->select('
             u.id,
-            u.username
+            u.name
             ')
             ->setFirstResult(0)
             ->setMaxResults($MaxTrainers)

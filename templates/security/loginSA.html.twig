@@ -12,11 +12,11 @@
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             {% endif %}
-            {# {% if app.user %}
+            {% if app.user %}
                 <div class="mb-3 bg-danger">
                      Jesteś zalogowany jako : {{ app.user.username }}, <a href="{{ path('app_logout') }}">Wyloguj</a>
                 </div>
-            {% endif %} #}
+            {% endif %} 
             <h1 class="h3 mb-3 font-weight-normal text-danger">ROOT Panel</h1>
             <label for="inputUsername">Username</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>

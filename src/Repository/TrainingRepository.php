@@ -19,6 +19,26 @@ class TrainingRepository extends ServiceEntityRepository
         parent::__construct($registry, Training::class);
     }
 
+    public function CountTraining(){
+        $qb = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        return $qb;
+    }
+
+    public function GetTrainingPreview($Maxtrainings){
+        $query = $this->createQueryBuilder('u')
+            ->select('u')
+            ->orderBy('u.id')
+            ->setFirstResult(0)
+            ->setMaxResults($Maxtrainings)
+            ->getQuery()
+            ->getArrayResult();
+        return $query;
+
+    }
+
     // /**
     //  * @return Training[] Returns an array of Training objects
     //  */

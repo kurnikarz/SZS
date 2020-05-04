@@ -54,6 +54,7 @@ class SuperAdminRepository extends ServiceEntityRepository implements PasswordUp
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
     //  /**
     //   * @return SuperAdmin[] Returns an array of SuperAdmin objects

@@ -36,6 +36,7 @@ class CoursesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
 
     // /**

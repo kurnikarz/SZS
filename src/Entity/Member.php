@@ -49,7 +49,7 @@ class Member implements UserInterface
     private $number;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Training", inversedBy="member")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Training", inversedBy="members")
      */
     private $training;
 

@@ -4,7 +4,6 @@
 namespace App\Controller;
 
 
-use App\Entity\Member;
 use App\Entity\Trainer;
 use App\Entity\Training;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -77,20 +76,5 @@ class TrainingController extends AbstractController
         $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
         $trainer = $training->getTrainer();
         return $this->render('training/show.html.twig', array('training' => $training, 'trainer' => $trainer));
-    }
-
-    /**
-     * @Route("/szkolenia/join/{id}", name="training_join")
-     */
-    public function join($id) {
-        $entityManager = $this->getDoctrine()->getManager();
-        $username = $this->getUser()->getUsername();
-        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
-        $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
-        $member->addTraining($training);
-
-        $entityManager->persist($member);
-        $entityManager->flush();
-        return $this->render('training/join.html.twig');
     }
 }

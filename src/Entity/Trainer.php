@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrainerRepository")
  */
-class Trainer
+class Trainer implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -19,132 +18,91 @@ class Trainer
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $name;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="json")
      */
-    private $surname;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=15)
-     */
-    private $number;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Training", mappedBy="trainer")
-     */
-    private $trainings;
-
-    public function __construct()
-    {
-        $this->trainings = new ArrayCollection();
-    }
+    private $password;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-    public function getName(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->name;
-    }
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
+        return (string) $this->username;
     }
 
-
-    public function getSurname(): ?string
+    public function setUsername(string $username): self
     {
-        return $this->surname;
-    }
-
-    public function setSurname(string $surname): self
-    {
-        $this->surname = $surname;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-    public function getRoles(): ?array
-    {
-        return $this->roles;
-
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-
-    public function getNumber(): ?string
-    {
-        return $this->number;
-    }
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setNumber(string $number): self
-    {
-        $this->number = $number;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * @return Collection|Training[]
+     * @see UserInterface
      */
-    public function getTrainings(): Collection
+    public function getRoles(): array
     {
-        return $this->trainings;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function addTraining(Training $training): self
+    public function setRoles(array $roles): self
     {
-        if (!$this->trainings->contains($training)) {
-            $this->trainings[] = $training;
-            $training->setTrainer($this);
-        }
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function removeTraining(Training $training): self
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
-        if ($this->trainings->contains($training)) {
-            $this->trainings->removeElement($training);
-            // set the owning side to null (unless already changed)
-            if ($training->getTrainer() === $this) {
-                $training->setTrainer(null);
-            }
-        }
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

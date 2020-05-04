@@ -6,19 +6,17 @@
 {{ include('inc/navbarT.html.twig')}}
 
 {% if courses %}
-<h1>Details of courses</h1>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Place</th>
                 <th>Date</th>
-                <th>Members</th>
             </tr>
         </thead>
         <tbody>
             {% for course in courses %}
-                {% if app.user.id == course.trainer %}
+                {%if app.user.id == course.trainer %}
                     <tr>
                         <td>{{ course.name }}</td>
         
@@ -26,8 +24,7 @@
     
                         <td>{{ course.time|date('d-m-Y H:i')}}</td>
 
-                        <td><a href="/members" type="button" class="btn btn-info">Show members</td>
-
+                        <td><button type="button" class="btn btn-success">Show more</button></td>
                     </tr>
                 {% endif %}
             {% endfor %}

@@ -6,7 +6,27 @@
     {% include asset('inc/navbarSA.html.twig') %}
     <div class="container">
         <div class="row">
-
+            <div class="col-sm-12">
+                <a href="{{ asset('SuperAdmin/registerSA') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Root</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id.</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for root in Roots %}
+                    <tr>
+                        <td>{{ root.id }}</td>
+                        <td>{{ root.username }}</td>
+                        <td><a href="{{ asset('SuperAdmin/crudSA/SACRUD/show/'~ root.id) }}" class="btn btn-info">Szczegóły</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

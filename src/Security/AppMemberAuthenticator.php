@@ -39,7 +39,7 @@ class AppMemberAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function supports(Request $request)
     {
-        return 'app_login' === $request->attributes->get('_route')
+        return 'app_loginMember' === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
@@ -101,6 +101,6 @@ class AppMemberAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     protected function getLoginUrl()
     {
-        return $this->urlGenerator->generate('app_login');
+        return $this->urlGenerator->generate('app_loginMember');
     }
 }

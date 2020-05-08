@@ -4,6 +4,8 @@ security:
             algorithm: auto
         App\Entity\Trainer:
             algorithm: auto
+        App\Entity\Member:
+            algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -16,6 +18,10 @@ security:
             entity:
                 class: App\Entity\SuperAdmin
                 property: username
+        Member:
+            entity:
+                class: App\Entity\Member
+                property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
@@ -28,6 +34,7 @@ security:
                 authenticators:
                     - App\Security\AppSuperAdminAuthenticator
                     - App\Security\AppTrainerAuthenticator
+                    - App\Security\AppMemberAuthenticator
                 entry_point: App\Security\AppTrainerAuthenticator
             logout:
                 path: app_logout

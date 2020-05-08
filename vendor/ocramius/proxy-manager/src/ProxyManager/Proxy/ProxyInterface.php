@@ -7,7 +7,8 @@ namespace ProxyManager\Proxy;
 /**
  * Base proxy marker
  *
- * @psalm-template DecoratedClassName of object
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 interface ProxyInterface
 {

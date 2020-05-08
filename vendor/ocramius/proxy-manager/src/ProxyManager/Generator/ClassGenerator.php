@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace ProxyManager\Generator;
 
-use Laminas\Code\Generator\ClassGenerator as ZendClassGenerator;
-use function array_map;
-use function trim;
+use Zend\Code\Generator\ClassGenerator as ZendClassGenerator;
 
 /**
  * Class generator that ensures that interfaces/classes that are implemented/extended are FQCNs
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class ClassGenerator extends ZendClassGenerator
 {
     /**
      * {@inheritDoc}
      */
-    public function setExtendedClass($extendedClass) : ZendClassGenerator
+    public function setExtendedClass($extendedClass) : parent
     {
         if ($extendedClass) {
             $extendedClass = '\\' . trim($extendedClass, '\\');
@@ -27,18 +28,13 @@ class ClassGenerator extends ZendClassGenerator
 
     /**
      * {@inheritDoc}
-     *
-     * @param array<int, string> $interfaces
-     *
-     * @psalm-suppress MoreSpecificImplementedParamType parent interface does not specify type of array values
      */
-    public function setImplementedInterfaces(array $interfaces) : ZendClassGenerator
+    public function setImplementedInterfaces(array $interfaces) : parent
     {
-        return parent::setImplementedInterfaces(array_map(
-            static function (string $interface) : string {
-                return '\\' . trim($interface, '\\');
-            },
-            $interfaces
-        ));
+        foreach ($interfaces as & $interface) {
+            $interface = '\\' . trim($interface, '\\');
+        }
+
+        return parent::setImplementedInterfaces($interfaces);
     }
 }

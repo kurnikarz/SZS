@@ -4,21 +4,22 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator\Util;
 
-use InvalidArgumentException;
-use Laminas\Code\Generator\PropertyGenerator;
-use function sprintf;
+use Zend\Code\Generator\PropertyGenerator;
 
 /**
  * Generates code necessary to simulate a fatal error in case of unauthorized
  * access to class members in magic methods even when in child classes and dealing
  * with protected members.
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class PublicScopeSimulator
 {
-    public const OPERATION_SET   = 'set';
-    public const OPERATION_GET   = 'get';
-    public const OPERATION_ISSET = 'isset';
-    public const OPERATION_UNSET = 'unset';
+    const OPERATION_SET   = 'set';
+    const OPERATION_GET   = 'get';
+    const OPERATION_ISSET = 'isset';
+    const OPERATION_UNSET = 'unset';
 
     /**
      * Generates code for simulating access to a property from the scope that is accessing a proxy.
@@ -33,17 +34,17 @@ class PublicScopeSimulator
      * @param string|null       $returnPropertyName name of the property to which we want to assign the result of
      *                                              the operation. Return directly if none provided
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public static function getPublicAccessSimulationCode(
         string $operationType,
         string $nameParameter,
-        ?string $valueParameter = null,
-        ?PropertyGenerator $valueHolder = null,
-        ?string $returnPropertyName = null
+        $valueParameter = null,
+        PropertyGenerator $valueHolder = null,
+        $returnPropertyName = null
     ) : string {
         $byRef  = self::getByRefReturnValue($operationType);
-        $value  = $operationType === self::OPERATION_SET ? ', $value' : '';
+        $value  = static::OPERATION_SET === $operationType ? ', $value' : '';
         $target = '$this';
 
         if ($valueHolder) {
@@ -51,7 +52,7 @@ class PublicScopeSimulator
         }
 
         return '$realInstanceReflection = new \\ReflectionClass(get_parent_class($this));' . "\n\n"
-            . 'if (! $realInstanceReflection->hasProperty($' . $nameParameter . ')) {' . "\n"
+            . 'if (! $realInstanceReflection->hasProperty($' . $nameParameter . ')) {'   . "\n"
             . '    $targetObject = ' . $target . ';' . "\n\n"
             . self::getUndefinedPropertyNotice($operationType, $nameParameter)
             . '    ' . self::getOperation($operationType, $nameParameter, $valueParameter) . "\n"
@@ -71,10 +72,15 @@ class PublicScopeSimulator
 
     /**
      * This will generate code that triggers a notice if access is attempted on a non-existing property
+     *
+     * @param string $operationType
+     * @param string $nameParameter
+     *
+     * @return string
      */
     private static function getUndefinedPropertyNotice(string $operationType, string $nameParameter) : string
     {
-        if ($operationType !== self::OPERATION_GET) {
+        if (static::OPERATION_GET !== $operationType) {
             return '';
         }
 
@@ -100,46 +106,52 @@ class PublicScopeSimulator
      */
     private static function getByRefReturnValue(string $operationType) : string
     {
-        return $operationType === self::OPERATION_GET || $operationType === self::OPERATION_SET ? '& ' : '';
+        return (static::OPERATION_GET === $operationType || static::OPERATION_SET === $operationType) ? '& ' : '';
     }
 
     /**
      * Retrieves the logic to fetch the object on which access should be attempted
+     *
+     * @param PropertyGenerator $valueHolder
+     *
+     * @return string
      */
-    private static function getTargetObject(?PropertyGenerator $valueHolder = null) : string
+    private static function getTargetObject(PropertyGenerator $valueHolder = null) : string
     {
         if ($valueHolder) {
             return '$this->' . $valueHolder->getName();
         }
 
-        return '$realInstanceReflection->newInstanceWithoutConstructor()';
+        return 'unserialize(sprintf(\'O:%d:"%s":0:{}\', strlen(get_parent_class($this)), get_parent_class($this)))';
     }
 
     /**
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private static function getOperation(string $operationType, string $nameParameter, ?string $valueParameter) : string
     {
         switch ($operationType) {
-            case self::OPERATION_GET:
+            case static::OPERATION_GET:
                 return 'return $targetObject->$' . $nameParameter . ';';
-            case self::OPERATION_SET:
-                if ($valueParameter === null) {
-                    throw new InvalidArgumentException('Parameter $valueParameter not provided');
+            case static::OPERATION_SET:
+                if (null === $valueParameter) {
+                    throw new \InvalidArgumentException('Parameter $valueParameter not provided');
                 }
 
                 return 'return $targetObject->$' . $nameParameter . ' = $' . $valueParameter . ';';
-            case self::OPERATION_ISSET:
+            case static::OPERATION_ISSET:
                 return 'return isset($targetObject->$' . $nameParameter . ');';
-            case self::OPERATION_UNSET:
+            case static::OPERATION_UNSET:
                 return 'unset($targetObject->$' . $nameParameter . ');';
         }
 
-        throw new InvalidArgumentException(sprintf('Invalid operation "%s" provided', $operationType));
+        throw new \InvalidArgumentException(sprintf('Invalid operation "%s" provided', $operationType));
     }
 
     /**
      * Generates code to bind operations to the parent scope
+     *
+     * @return string
      */
     private static function getScopeReBind() : string
     {

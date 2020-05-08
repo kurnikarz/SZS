@@ -3293,6 +3293,7 @@
                 "scaffold",
                 "scaffolding"
             ],
+
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -3307,6 +3308,7 @@
                     "type": "tidelift"
                 }
             ],
+
             "time": "2020-05-05T14:21:24+00:00"
         },
         {

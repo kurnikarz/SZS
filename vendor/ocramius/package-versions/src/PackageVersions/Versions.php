@@ -96,28 +96,17 @@ final class Versions
   'symfony/yaml' => 'v5.0.8@482fb4e710e5af3e0e78015f19aa716ad953392f',
   'twig/extra-bundle' => 'v3.0.3@6eaf1637abe6b68518e7e0949ebb84e55770d5c6',
   'twig/twig' => 'v3.0.3@3b88ccd180a6b61ebb517aea3b1a8906762a1dc2',
-<<<<<<< HEAD
   'webimpress/safe-writer' => '2.0.1@d6e879960febb307c112538997316371f1e95b12',
-  'paragonie/random_compat' => '2.*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-ctype' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-iconv' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-php72' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-php71' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-php70' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  'symfony/polyfill-php56' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
-  '__root__' => 'dev-artur@1f87810a734bf43ad7d69365caac78d07d833206',
-=======
   'zendframework/zend-code' => '3.4.1@268040548f92c2bfcba164421c1add2ba43abaaa',
   'zendframework/zend-eventmanager' => '3.2.1@a5e2583a211f73604691586b8406ff7296a946dd',
-  'paragonie/random_compat' => '2.*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-ctype' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-iconv' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-php72' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-php71' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-php70' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  'symfony/polyfill-php56' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
-  '__root__' => 'dev-marcin@7ea32a47f62be40e3074e6453b8e29036c86edd0',
->>>>>>> master
+  'paragonie/random_compat' => '2.*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-ctype' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-iconv' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-php72' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-php71' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-php70' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  'symfony/polyfill-php56' => '*@10f0551319279ac9451a5114a939dd277b52eeee',
+  '__root__' => 'dev-marcin@10f0551319279ac9451a5114a939dd277b52eeee',
 );
 
     private function __construct()

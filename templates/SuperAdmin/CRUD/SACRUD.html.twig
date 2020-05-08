@@ -9,7 +9,7 @@
             <div class="col-sm-12">
                 <a href="{{ asset('SuperAdmin/registerSA') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Root</a>
             </div>
-            <table id="test" class="table table-striped">
+            <table id="Root_Table" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Id.</th>
@@ -23,8 +23,7 @@
                         <td>{{ root.username }}</td>
                         <td>
                             <a href="{{ asset('SuperAdmin/crudSA/SACRUD/show/'~ root.id) }}" class="btn btn-dark">Show</a>
-                            <a class="btn btn-warning">Edit</a>
-                            <a href="####" class="btn btn-danger delete-root" data-id="{{ root.id }}">Delete</a>
+                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/delete/'~ root.id) }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

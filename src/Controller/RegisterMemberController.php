@@ -54,7 +54,7 @@ class RegisterMemberController extends AbstractController
             $em->persist($member);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('app_login'));
+            return $this->redirect($this->generateUrl('app_loginMember'));
         }
 
         return $this->render('register_member/index.html.twig', [

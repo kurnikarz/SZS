@@ -1604,17 +1604,17 @@
     },
     {
         "name": "sensio/framework-extra-bundle",
-        "version": "v5.5.4",
-        "version_normalized": "5.5.4.0",
+        "version": "v5.5.5",
+        "version_normalized": "5.5.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-            "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17"
+            "reference": "c76bb1c5c67840ecb6d9be8e9d8d7036e375e317"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/d0585d4825a87a5030ca8cd34adb4a17e1066c17",
-            "reference": "d0585d4825a87a5030ca8cd34adb4a17e1066c17",
+            "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/c76bb1c5c67840ecb6d9be8e9d8d7036e375e317",
+            "reference": "c76bb1c5c67840ecb6d9be8e9d8d7036e375e317",
             "shasum": ""
         },
         "require": {
@@ -1645,7 +1645,7 @@
             "symfony/yaml": "^4.4|^5.0",
             "twig/twig": "^1.34|^2.4|^3.0"
         },
-        "time": "2020-04-06T12:20:39+00:00",
+        "time": "2020-05-06T12:12:33+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {
@@ -3108,17 +3108,17 @@
     },
     {
         "name": "symfony/maker-bundle",
-        "version": "v1.15.1",
-        "version_normalized": "1.15.1.0",
+        "version": "v1.16.0",
+        "version_normalized": "1.16.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/maker-bundle.git",
-            "reference": "ae95a2b7fa8272e75630c273396097074f23e03f"
+            "reference": "c8b36ce2aac3635603b4ffc58fbc26717e0a7317"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/ae95a2b7fa8272e75630c273396097074f23e03f",
-            "reference": "ae95a2b7fa8272e75630c273396097074f23e03f",
+            "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/c8b36ce2aac3635603b4ffc58fbc26717e0a7317",
+            "reference": "c8b36ce2aac3635603b4ffc58fbc26717e0a7317",
             "shasum": ""
         },
         "require": {
@@ -3144,7 +3144,7 @@
             "symfony/security-core": "^3.4|^4.0|^5.0",
             "symfony/yaml": "^3.4|^4.0|^5.0"
         },
-        "time": "2020-04-21T19:17:25+00:00",
+        "time": "2020-05-05T14:21:24+00:00",
         "type": "symfony-bundle",
         "extra": {
             "branch-alias": {

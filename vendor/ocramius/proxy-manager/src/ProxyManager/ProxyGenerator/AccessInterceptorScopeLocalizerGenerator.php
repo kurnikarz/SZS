@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator;
 
-use InvalidArgumentException;
-use Laminas\Code\Generator\ClassGenerator;
-use Laminas\Code\Generator\MethodGenerator;
-use Laminas\Code\Reflection\MethodReflection;
 use ProxyManager\Exception\InvalidProxiedClassException;
 use ProxyManager\Generator\Util\ClassGeneratorUtils;
 use ProxyManager\Proxy\AccessInterceptorInterface;
@@ -28,24 +24,27 @@ use ProxyManager\ProxyGenerator\Assertion\CanProxyAssertion;
 use ProxyManager\ProxyGenerator\Util\ProxiedMethodsFilter;
 use ReflectionClass;
 use ReflectionMethod;
-use function array_map;
-use function array_merge;
+use Zend\Code\Generator\ClassGenerator;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Reflection\MethodReflection;
 
 /**
  * Generator for proxies implementing {@see \ProxyManager\Proxy\ValueHolderInterface}
  * and localizing scope of the proxied object at instantiation
  *
  * {@inheritDoc}
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class AccessInterceptorScopeLocalizerGenerator implements ProxyGeneratorInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @return void
-     *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws InvalidProxiedClassException
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function generate(ReflectionClass $originalClass, ClassGenerator $classGenerator)
     {
@@ -57,7 +56,7 @@ class AccessInterceptorScopeLocalizerGenerator implements ProxyGeneratorInterfac
         $classGenerator->addPropertyFromGenerator($suffixInterceptors = new MethodSuffixInterceptors());
 
         array_map(
-            static function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) : void {
+            function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) {
                 ClassGeneratorUtils::addMethodIfNotFinal($originalClass, $classGenerator, $generatedMethod);
             },
             array_merge(
@@ -88,7 +87,7 @@ class AccessInterceptorScopeLocalizerGenerator implements ProxyGeneratorInterfac
         MethodPrefixInterceptors $prefixInterceptors,
         MethodSuffixInterceptors $suffixInterceptors
     ) : callable {
-        return static function (ReflectionMethod $method) use ($prefixInterceptors, $suffixInterceptors) : InterceptedMethod {
+        return function (ReflectionMethod $method) use ($prefixInterceptors, $suffixInterceptors) : InterceptedMethod {
             return InterceptedMethod::generateMethod(
                 new MethodReflection($method->getDeclaringClass()->getName(), $method->getName()),
                 $prefixInterceptors,

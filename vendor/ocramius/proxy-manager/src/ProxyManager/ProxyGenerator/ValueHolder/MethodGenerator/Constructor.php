@@ -4,34 +4,30 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator;
 
-use Laminas\Code\Generator\Exception\InvalidArgumentException;
-use Laminas\Code\Generator\PropertyGenerator;
-use Laminas\Code\Reflection\MethodReflection;
-use Laminas\Code\Reflection\ParameterReflection;
 use ProxyManager\Generator\MethodGenerator;
 use ProxyManager\ProxyGenerator\Util\Properties;
 use ProxyManager\ProxyGenerator\Util\UnsetPropertiesGenerator;
 use ReflectionClass;
-use ReflectionMethod;
-use function array_filter;
-use function array_map;
-use function implode;
-use function reset;
-use function var_export;
+use Zend\Code\Generator\PropertyGenerator;
+use Zend\Code\Reflection\MethodReflection;
+use Zend\Code\Reflection\ParameterReflection;
 
 /**
  * The `__construct` implementation for lazy loading proxies
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class Constructor extends MethodGenerator
 {
     /**
-     * @throws InvalidArgumentException
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public static function generateMethod(ReflectionClass $originalClass, PropertyGenerator $valueHolder) : self
     {
         $originalConstructor = self::getConstructor($originalClass);
 
-        /** @var self $constructor */
+        /* @var $constructor self */
         $constructor = $originalConstructor
             ? self::fromReflectionWithoutBodyAndDocBlock($originalConstructor)
             : new self('__construct');
@@ -60,7 +56,7 @@ class Constructor extends MethodGenerator
             . implode(
                 ', ',
                 array_map(
-                    static function (ParameterReflection $parameter) : string {
+                    function (ParameterReflection $parameter) : string {
                         return ($parameter->isVariadic() ? '...' : '') . '$' . $parameter->getName();
                     },
                     $originalConstructor->getParameters()
@@ -69,10 +65,15 @@ class Constructor extends MethodGenerator
             . ');';
     }
 
-    private static function getConstructor(ReflectionClass $class) : ?MethodReflection
+    /**
+     * @param ReflectionClass $class
+     *
+     * @return MethodReflection|null
+     */
+    private static function getConstructor(ReflectionClass $class)
     {
         $constructors = array_map(
-            static function (ReflectionMethod $method) : MethodReflection {
+            function (\ReflectionMethod $method) : MethodReflection {
                 return new MethodReflection(
                     $method->getDeclaringClass()->getName(),
                     $method->getName()
@@ -80,7 +81,7 @@ class Constructor extends MethodGenerator
             },
             array_filter(
                 $class->getMethods(),
-                static function (ReflectionMethod $method) : bool {
+                function (\ReflectionMethod $method) : bool {
                     return $method->isConstructor();
                 }
             )

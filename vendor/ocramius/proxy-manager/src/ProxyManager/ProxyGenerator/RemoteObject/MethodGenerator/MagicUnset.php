@@ -4,22 +4,26 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator;
 
-use Laminas\Code\Generator\Exception\InvalidArgumentException;
-use Laminas\Code\Generator\ParameterGenerator;
-use Laminas\Code\Generator\PropertyGenerator;
 use ProxyManager\Generator\MagicMethodGenerator;
+use Zend\Code\Generator\ParameterGenerator;
 use ReflectionClass;
-use function var_export;
+use Zend\Code\Generator\PropertyGenerator;
 
 /**
  * Magic `__unset` method for remote objects
+ *
+ * @author Vincent Blanchon <blanchon.vincent@gmail.com>
+ * @license MIT
  */
 class MagicUnset extends MagicMethodGenerator
 {
     /**
      * Constructor
      *
-     * @throws InvalidArgumentException
+     * @param ReflectionClass   $originalClass
+     * @param PropertyGenerator $adapterProperty
+     *
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function __construct(ReflectionClass $originalClass, PropertyGenerator $adapterProperty)
     {

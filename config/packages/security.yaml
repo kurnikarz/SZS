@@ -18,7 +18,7 @@ security:
             entity:
                 class: App\Entity\SuperAdmin
                 property: username
-        app_user_provider:
+        Member:
             entity:
                 class: App\Entity\Member
                 property: email
@@ -55,6 +55,5 @@ security:
         - { path: ^/SuperAdmin, roles: ROLE_SUPERADMIN }
         #- { path: ^/loginSA, roles: ROLE_SUPERADMIN }
         - { path: ^/registerSA, roles: ROLE_SUPERADMIN }
-        - { path: ^/loginMember$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         
 

@@ -4,22 +4,25 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator\RemoteObject\MethodGenerator;
 
-use Laminas\Code\Generator\Exception\InvalidArgumentException;
-use Laminas\Code\Generator\ParameterGenerator;
-use Laminas\Code\Generator\PropertyGenerator;
 use ProxyManager\Generator\MagicMethodGenerator;
+use Zend\Code\Generator\ParameterGenerator;
 use ReflectionClass;
-use function var_export;
+use Zend\Code\Generator\PropertyGenerator;
 
 /**
  * Magic `__set` for remote objects
+ *
+ * @author Vincent Blanchon <blanchon.vincent@gmail.com>
+ * @license MIT
  */
 class MagicSet extends MagicMethodGenerator
 {
     /**
      * Constructor
+     * @param ReflectionClass                        $originalClass
+     * @param \Zend\Code\Generator\PropertyGenerator $adapterProperty
      *
-     * @throws InvalidArgumentException
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function __construct(ReflectionClass $originalClass, PropertyGenerator $adapterProperty)
     {

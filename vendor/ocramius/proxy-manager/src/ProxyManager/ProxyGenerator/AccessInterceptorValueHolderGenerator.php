@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator;
 
-use InvalidArgumentException;
-use Laminas\Code\Generator\ClassGenerator;
-use Laminas\Code\Generator\MethodGenerator;
-use Laminas\Code\Reflection\MethodReflection;
 use ProxyManager\Exception\InvalidProxiedClassException;
 use ProxyManager\Generator\Util\ClassGeneratorUtils;
 use ProxyManager\Proxy\AccessInterceptorValueHolderInterface;
@@ -33,24 +29,27 @@ use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\GetWrappedValueHolde
 use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\MagicSleep;
 use ReflectionClass;
 use ReflectionMethod;
-use function array_map;
-use function array_merge;
+use Zend\Code\Generator\ClassGenerator;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Reflection\MethodReflection;
 
 /**
  * Generator for proxies implementing {@see \ProxyManager\Proxy\ValueHolderInterface}
  * and {@see \ProxyManager\Proxy\AccessInterceptorInterface}
  *
  * {@inheritDoc}
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @return void
-     *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @throws InvalidProxiedClassException
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
      */
     public function generate(ReflectionClass $originalClass, ClassGenerator $classGenerator)
     {
@@ -66,13 +65,13 @@ class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->setImplementedInterfaces($interfaces);
-        $classGenerator->addPropertyFromGenerator($valueHolder        = new ValueHolderProperty($originalClass));
+        $classGenerator->addPropertyFromGenerator($valueHolder = new ValueHolderProperty());
         $classGenerator->addPropertyFromGenerator($prefixInterceptors = new MethodPrefixInterceptors());
         $classGenerator->addPropertyFromGenerator($suffixInterceptors = new MethodSuffixInterceptors());
         $classGenerator->addPropertyFromGenerator($publicProperties);
 
         array_map(
-            static function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) : void {
+            function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) {
                 ClassGeneratorUtils::addMethodIfNotFinal($originalClass, $classGenerator, $generatedMethod);
             },
             array_merge(
@@ -127,7 +126,7 @@ class AccessInterceptorValueHolderGenerator implements ProxyGeneratorInterface
         MethodSuffixInterceptors $suffixes,
         ValueHolderProperty $valueHolder
     ) : callable {
-        return static function (ReflectionMethod $method) use ($prefixes, $suffixes, $valueHolder) : InterceptedMethod {
+        return function (ReflectionMethod $method) use ($prefixes, $suffixes, $valueHolder) : InterceptedMethod {
             return InterceptedMethod::generateMethod(
                 new MethodReflection($method->getDeclaringClass()->getName(), $method->getName()),
                 $valueHolder,

@@ -39,12 +39,9 @@ final class Versions
   'doctrine/persistence' => '1.3.7@0af483f91bada1c9ded6c2cfd26ab7d5ab2094e0',
   'doctrine/reflection' => '1.2.1@55e71912dfcd824b2fdd16f2d9afe15684cfce79',
   'jdorn/sql-formatter' => 'v1.2.17@64990d96e0959dff8e059dfcdc1af130728d92bc',
-  'laminas/laminas-code' => '3.4.1@1cb8f203389ab1482bf89c0e70a04849bacd7766',
-  'laminas/laminas-eventmanager' => '3.2.1@ce4dc0bdf3b14b7f9815775af9dfee80a63b4748',
-  'laminas/laminas-zendframework-bridge' => '1.0.3@bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9',
   'nikic/php-parser' => 'v4.4.0@bd43ec7152eaaab3bd8c6d0aa95ceeb1df8ee120',
-  'ocramius/package-versions' => '1.8.0@421679846270a5772534828013a93be709fb13df',
-  'ocramius/proxy-manager' => '2.8.0@ac1dd414fd114cfc0da9930e0ab46063c2f5e62a',
+  'ocramius/package-versions' => '1.5.1@1d32342b8c1eb27353c8887c366147b4c2da673c',
+  'ocramius/proxy-manager' => '2.2.3@4d154742e31c35137d5374c998e8f86b54db2e2f',
   'psr/cache' => '1.0.1@d11b50ad223250cf17b86e38383413f5a6764bf8',
   'psr/container' => '1.0.0@b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
   'psr/event-dispatcher' => '1.0.0@dbefd12671e8a14ec7f180cab83036ed26714bb0',
@@ -99,6 +96,7 @@ final class Versions
   'symfony/yaml' => 'v5.0.8@482fb4e710e5af3e0e78015f19aa716ad953392f',
   'twig/extra-bundle' => 'v3.0.3@6eaf1637abe6b68518e7e0949ebb84e55770d5c6',
   'twig/twig' => 'v3.0.3@3b88ccd180a6b61ebb517aea3b1a8906762a1dc2',
+<<<<<<< HEAD
   'webimpress/safe-writer' => '2.0.1@d6e879960febb307c112538997316371f1e95b12',
   'paragonie/random_compat' => '2.*@1f87810a734bf43ad7d69365caac78d07d833206',
   'symfony/polyfill-ctype' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
@@ -108,6 +106,18 @@ final class Versions
   'symfony/polyfill-php70' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
   'symfony/polyfill-php56' => '*@1f87810a734bf43ad7d69365caac78d07d833206',
   '__root__' => 'dev-artur@1f87810a734bf43ad7d69365caac78d07d833206',
+=======
+  'zendframework/zend-code' => '3.4.1@268040548f92c2bfcba164421c1add2ba43abaaa',
+  'zendframework/zend-eventmanager' => '3.2.1@a5e2583a211f73604691586b8406ff7296a946dd',
+  'paragonie/random_compat' => '2.*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-ctype' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-iconv' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-php72' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-php71' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-php70' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  'symfony/polyfill-php56' => '*@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+  '__root__' => 'dev-marcin@7ea32a47f62be40e3074e6453b8e29036c86edd0',
+>>>>>>> master
 );
 
     private function __construct()

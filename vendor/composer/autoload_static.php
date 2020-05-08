@@ -12,13 +12,13 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
-        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'Z' => 
         array (
-            'Webimpress\\SafeWriter\\' => 22,
+            'Zend\\EventManager\\' => 18,
+            'Zend\\Code\\' => 10,
         ),
         'T' => 
         array (
@@ -78,15 +78,8 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
-            'ProxyManager\\' => 13,
             'PhpParser\\' => 10,
             'PackageVersions\\' => 16,
-        ),
-        'L' => 
-        array (
-            'Laminas\\ZendFrameworkBridge\\' => 28,
-            'Laminas\\EventManager\\' => 21,
-            'Laminas\\Code\\' => 13,
         ),
         'D' => 
         array (
@@ -112,9 +105,13 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
     );
 
     public static $prefixDirsPsr4 = array (
-        'Webimpress\\SafeWriter\\' => 
+        'Zend\\EventManager\\' => 
         array (
-            0 => __DIR__ . '/..' . '/webimpress/safe-writer/src',
+            0 => __DIR__ . '/..' . '/zendframework/zend-eventmanager/src',
+        ),
+        'Zend\\Code\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-code/src',
         ),
         'Twig\\Extra\\TwigExtraBundle\\' => 
         array (
@@ -316,10 +313,6 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'ProxyManager\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src/ProxyManager',
-        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -327,18 +320,6 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         'PackageVersions\\' => 
         array (
             0 => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions',
-        ),
-        'Laminas\\ZendFrameworkBridge\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
-        ),
-        'Laminas\\EventManager\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-eventmanager/src',
-        ),
-        'Laminas\\Code\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-code/src',
         ),
         'Doctrine\\Persistence\\' => 
         array (
@@ -405,6 +386,16 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'ProxyManager\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/ocramius/proxy-manager/src',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/IntlDateFormatter.php',
@@ -419,6 +410,7 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit478d9766b7524e4b92a6e81d3664e096::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit478d9766b7524e4b92a6e81d3664e096::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit478d9766b7524e4b92a6e81d3664e096::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit478d9766b7524e4b92a6e81d3664e096::$classMap;
 
         }, null, ClassLoader::class);

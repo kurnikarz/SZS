@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace ProxyManager\Proxy;
 
-use Closure;
-
 /**
  * Lazy loading object identifier
  *
- * @psalm-template LazilyLoadedObjectType of object
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 interface LazyLoadingInterface extends ProxyInterface
 {
@@ -21,40 +20,19 @@ interface LazyLoadingInterface extends ProxyInterface
      * An initializer should have a signature like following:
      *
      * <code>
-     * $initializer = function (
-     *   & ?object $wrappedObject,
-     *   LazyLoadingInterface $proxy,
-     *   string $calledMethod,
-     *   array $callParameters,
-     *   & ?\Closure $initializer,
-     *   array $propertiesToBeSet = [] // works only on ghost objects
-     * ) {};
+     * $initializer = function (& $wrappedObject, $proxy, string $method, array $parameters, & $initializer) {};
      * </code>
      *
-     * @return void
+     * @param \Closure|null $initializer
      *
-     * @psalm-param null|Closure(
-     *   LazilyLoadedObjectType|null=,
-     *   LazilyLoadedObjectType&LazyLoadingInterface<LazilyLoadedObjectType>=,
-     *   string=,
-     *   array<string, mixed>=,
-     *   ?Closure=,
-     *   array<string, mixed>=
-     * ) : bool $initializer
+     * @return mixed
      */
-    public function setProxyInitializer(?Closure $initializer = null);
+    public function setProxyInitializer(\Closure $initializer = null);
 
     /**
-     * @psalm-return null|Closure(
-     *   LazilyLoadedObjectType|null=,
-     *   LazilyLoadedObjectType&LazyLoadingInterface<LazilyLoadedObjectType>=,
-     *   string,
-     *   array<string, mixed>=,
-     *   ?Closure=,
-     *   array<string, mixed>=
-     * ) : bool
+     * @return \Closure|null
      */
-    public function getProxyInitializer() : ?Closure;
+    public function getProxyInitializer();
 
     /**
      * Force initialization of the proxy

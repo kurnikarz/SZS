@@ -7,7 +7,8 @@ namespace ProxyManager\Proxy;
 /**
  * Smart reference object marker
  *
- * @deprecated this interface is not in use anymore, and should not be relied upon
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 interface SmartReferenceInterface extends ProxyInterface
 {

@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace ProxyManager\ProxyGenerator;
 
-use InvalidArgumentException;
-use Laminas\Code\Generator\ClassGenerator;
-use Laminas\Code\Generator\MethodGenerator;
-use Laminas\Code\Reflection\MethodReflection;
 use ProxyManager\Exception\InvalidProxiedClassException;
 use ProxyManager\Generator\Util\ClassGeneratorUtils;
 use ProxyManager\Proxy\VirtualProxyInterface;
@@ -34,30 +30,33 @@ use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\Constructor;
 use ProxyManager\ProxyGenerator\ValueHolder\MethodGenerator\GetWrappedValueHolderValue;
 use ReflectionClass;
 use ReflectionMethod;
-use function array_map;
-use function array_merge;
+use Zend\Code\Generator\ClassGenerator;
+use Zend\Code\Generator\MethodGenerator;
+use Zend\Code\Reflection\MethodReflection;
 
 /**
  * Generator for proxies implementing {@see \ProxyManager\Proxy\VirtualProxyInterface}
  *
  * {@inheritDoc}
+ *
+ * @author Marco Pivetta <ocramius@gmail.com>
+ * @license MIT
  */
 class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @return void
-     *
      * @throws InvalidProxiedClassException
-     * @throws InvalidArgumentException
+     * @throws \Zend\Code\Generator\Exception\InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function generate(ReflectionClass $originalClass, ClassGenerator $classGenerator)
     {
         CanProxyAssertion::assertClassCanBeProxied($originalClass);
 
-        $interfaces       = [VirtualProxyInterface::class];
-        $publicProperties = new PublicPropertiesMap(Properties::fromReflectionClass($originalClass));
+        $interfaces          = [VirtualProxyInterface::class];
+        $publicProperties    = new PublicPropertiesMap(Properties::fromReflectionClass($originalClass));
 
         if ($originalClass->isInterface()) {
             $interfaces[] = $originalClass->getName();
@@ -66,12 +65,12 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
         }
 
         $classGenerator->setImplementedInterfaces($interfaces);
-        $classGenerator->addPropertyFromGenerator($valueHolder = new ValueHolderProperty($originalClass));
+        $classGenerator->addPropertyFromGenerator($valueHolder = new ValueHolderProperty());
         $classGenerator->addPropertyFromGenerator($initializer = new InitializerProperty());
         $classGenerator->addPropertyFromGenerator($publicProperties);
 
         array_map(
-            static function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) : void {
+            function (MethodGenerator $generatedMethod) use ($originalClass, $classGenerator) {
                 ClassGeneratorUtils::addMethodIfNotFinal($originalClass, $classGenerator, $generatedMethod);
             },
             array_merge(
@@ -103,7 +102,7 @@ class LazyLoadingValueHolderGenerator implements ProxyGeneratorInterface
         InitializerProperty $initializer,
         ValueHolderProperty $valueHolder
     ) : callable {
-        return static function (ReflectionMethod $method) use ($initializer, $valueHolder) : LazyLoadingMethodInterceptor {
+        return function (ReflectionMethod $method) use ($initializer, $valueHolder) : LazyLoadingMethodInterceptor {
             return LazyLoadingMethodInterceptor::generateMethod(
                 new MethodReflection($method->getDeclaringClass()->getName(), $method->getName()),
                 $initializer,

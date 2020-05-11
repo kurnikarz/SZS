@@ -19,7 +19,10 @@ class TrainerRegisterController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passEncoder)
     {
        $form = $this->createFormBuilder()
-                ->add('username')
+                ->add('name')
+                ->add('surname')
+                ->add('email')
+                ->add('number')
                 ->add('password', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'required' => true,
@@ -39,7 +42,10 @@ class TrainerRegisterController extends AbstractController
             $data = $form->getData();
 
             $trainer = new Trainer();
-            $trainer->setUsername($data['username']);
+            $trainer->setName($data['name']);
+            $trainer->setSurname($data['surname']);
+            $trainer->setEmail($data['email']);
+            $trainer->setNumber($data['number']);
             $trainer->setPassword(
                 $passEncoder->encodePassword($trainer, $data['password'])
             );

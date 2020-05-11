@@ -4,14 +4,19 @@ namespace App\Controller;
 use App\Entity\SuperAdmin;
 
 
+use App\Repository\MemberRepository;
 use App\Repository\SuperAdminRepository;
 use App\Repository\TrainerRepository;
+use App\Repository\TrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\Security;
+
 
 
 // registerSA
@@ -29,35 +34,35 @@ class SuperAdminController extends AbstractController
      * @param SuperAdminRepository $SAR
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR){
-        // SuperAdmin repository
-        // $SARepo = $SAR->findAll();
+    public function SuperAdminPage(Security $user, SuperAdminRepository $SAR, TrainerRepository $TR, TrainingRepository $trainingRepository, MemberRepository $MR){
+        //Roots
         $GRP = $SAR->GetRootPreview(5);
         $TotalRots = $SAR->CountRoot();
+        //Trainers
         $GTP = $TR->GetTrainerPreview(5);
         $TotalTrainers = $TR->CountTrainer();
+        //Trainings
+        $GTRepositoryPreview = $trainingRepository->GetTrainingPreview(5);
+        $TotalTrainings = $trainingRepository->CountTraining();
+        //Members
+        $GetMembersPreview = $MR->GetMemberPreview(5);
+        $TotalMembers = $MR->CountMember();
+
+
 
         return $this->render('SuperAdmin/index.html.twig',array(
-        'controller_name' => 'SuperAdminController',
-        'RootName' => $user->getUser()->getUsername(),
-        'TotalRots' => $TotalRots,
-            'TotalTrainers' => $TotalTrainers,
+            'controller_name' => 'SuperAdminController',
+            'RootName' => $user->getUser()->getUsername(),
+            'TotalRots' => $TotalRots,
             'GetRootPreview' => $GRP,
-              'GetTrainerPreview' => $GTP,
+            'TotalTrainers' => $TotalTrainers,
+            'GetTrainerPreview' => $GTP,
+            'GetTrainingPreview' =>$GTRepositoryPreview,
+            'TotalTrainings' =>$TotalTrainings,
+            'GetMembersPreview' => $GetMembersPreview,
+            'TotalMembers' => $TotalMembers,
         ));
     }
-    /**
-     * @Route("SuperAdmin/crudSA", name="super_admin_crud")
-     *
-     */
-    public function SuperAdminPage_CRUD(Security $user){
-
-    return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
-        'controller_name' => 'SuperAdminController_CRUD',
-        'RootName' => $user->getUser()->getUsername(),
-        ));
-    }
-
     /**
      * @Route("SuperAdmin/registerSA", name="app_registerSA")
      */
@@ -102,5 +107,53 @@ class SuperAdminController extends AbstractController
         'RootName' => $user->getUser()->getUsername(),
     ));
     }
+    /**
+     * @Route("SuperAdmin/crudSA", name="super_admin_crud")
+     *
+     */
+    public function SuperAdminPage_CRUD(Security $user){
 
+        return $this->render('SuperAdmin/CRUD/crud.html.twig',array(
+            'controller_name' => 'SuperAdminController_CRUD',
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/SACRUD", name="SA_CRUD", methods={"GET", "HEAD"})
+     */
+    public function SuperAdmin_CRUD(Security $user){
+        $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
+
+        return $this->render('SuperAdmin/CRUD/SACRUD.html.twig',array(
+            'controller_name' => 'SuperAdminController_ROOT_CRUD',
+            'Roots' => $roots,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/SACRUD/show/{id}", name="SA_CRUD_Show")
+     */
+    public function SuperAdmin_CRUD_Show($id, Security $user){
+        $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->find($id);
+
+        return $this->render('SuperAdmin/CRUD/SACRUD_show.html.twig',array(
+            'controller_name' => 'SuperAdminController_ROOT_CRUD_SHOW',
+            'Roots' => $roots,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/SACRUD/delete/{id}")
+     */
+    public function delete(Request $request, $id){
+        $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($roots);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+        return $this->redirect($this->generateUrl('SA_CRUD'));
+    }
 }

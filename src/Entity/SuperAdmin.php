@@ -52,7 +52,6 @@ class SuperAdmin implements UserInterface
 
     public function getRoles(): ?array
     {
-        return $this->roles;
         $roles = $this->roles;
         // guarantee every user at least has ROLE_SUPERADMIN
         $roles[] = 'ROLE_SUPERADMIN';

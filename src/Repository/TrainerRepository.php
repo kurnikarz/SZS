@@ -4,10 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Trainer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Trainer|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @method Trainer[]    findAll()
  * @method Trainer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TrainerRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class TrainerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -46,13 +43,14 @@ class TrainerRepository extends ServiceEntityRepository implements PasswordUpgra
         $query = $this->createQueryBuilder('u')
             ->select('
             u.id,
-            u.username
+            u.name
             ')
             ->setFirstResult(0)
             ->setMaxResults($MaxTrainers)
             ->getQuery()
             ->getArrayResult();
         return $query;
+
     }
 
     // /**

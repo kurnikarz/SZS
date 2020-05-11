@@ -1,0 +1,38 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD : ROOT{% endblock %}
+{% block body  %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                <a href="{{ asset('SuperAdmin/registerSA') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Root</a>
+            </div>
+            <table id="Root_Table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id.</th>
+                    <th>Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for root in Roots %}
+                    <tr>
+                        <td>{{ root.id }}</td>
+                        <td>{{ root.username }}</td>
+                        <td>
+                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/show/'~ root.id) }}" class="btn btn-dark">Show</a>
+                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/delete/'~ root.id) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('/js/root_delete.js') }}"></script>
+{% endblock %}

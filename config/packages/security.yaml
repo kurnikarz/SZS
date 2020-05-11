@@ -18,7 +18,7 @@ security:
             entity:
                 class: App\Entity\SuperAdmin
                 property: username
-        Member:
+        app_user_provider:
             entity:
                 class: App\Entity\Member
                 property: email

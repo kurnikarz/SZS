@@ -1,0 +1,44 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD : MEMBER{% endblock %}
+{% block body  %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-12">
+                                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/register') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Member</a>
+            </div>
+            <table id="Members_table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Id.</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for member in Members %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.surname }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.number }}</td>
+                        <td>
+                            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/show}'~ member.id) }}" class="btn btn-dark">Show</a>
+                            {#                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/delete/'~ trainer.id) }}" class="btn btn-info">EDIT</a>#}
+                            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/delete/'~ member.id) }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

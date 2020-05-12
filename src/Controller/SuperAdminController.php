@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\Member;
 use App\Entity\SuperAdmin;
 
-
+use App\Entity\Trainer;
 use App\Repository\MemberRepository;
 use App\Repository\SuperAdminRepository;
 use App\Repository\TrainerRepository;
@@ -17,14 +18,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\Security;
 
-
-
 // registerSA
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 
 class SuperAdminController extends AbstractController
 {
@@ -119,7 +117,7 @@ class SuperAdminController extends AbstractController
         ));
     }
     /**
-     * @Route("SuperAdmin/crudSA/SACRUD", name="SA_CRUD", methods={"GET", "HEAD"})
+     * @Route("SuperAdmin/crudSA/SACRUD", name="SA_CRUD")
      */
     public function SuperAdmin_CRUD(Security $user){
         $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
@@ -156,4 +154,183 @@ class SuperAdminController extends AbstractController
         $response->send();
         return $this->redirect($this->generateUrl('SA_CRUD'));
     }
+//  /************************ TRAINER ************************/
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD", name="TrainerCRUD")
+     */
+    public function Trainer_CRUD(Security $user){
+        $Trainers = $this->getDoctrine()->getRepository(Trainer::class)->findAll();
+
+        return $this->render('SuperAdmin/CRUD/TrainerCRUD.html.twig',array(
+            'controller_name' => 'SuperAdminController_Trainer_CRUD',
+            'Trainers' => $Trainers,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD/show/{id}", name="Trainer_CRUD_Show")
+     */
+    public function Trainer_CRUD_Show($id, Security $user){
+        $Trainers = $this->getDoctrine()->getRepository(Trainer::class)->find($id);
+
+        return $this->render('SuperAdmin/CRUD/TrainerCRUD_show.html.twig',array(
+            'controller_name' => 'SuperAdminController_Trainer_CRUD_SHOW',
+            'trainer' => $Trainers,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD/register", name="TrainerCRUD_register")
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passEncoder)
+    {
+        $form = $this->createFormBuilder()
+            ->add('name')
+            ->add('surname')
+            ->add('email')
+            ->add('number')
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'password'],
+                'second_options' => ['label' => 'Confirm Password']
+            ])
+            ->add('register', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $data = $form->getData();
+
+            $trainer = new Trainer();
+            $trainer->setName($data['name']);
+            $trainer->setSurname($data['surname']);
+            $trainer->setEmail($data['email']);
+            $trainer->setNumber($data['number']);
+            $trainer->setPassword(
+                $passEncoder->encodePassword($trainer, $data['password'])
+            );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($trainer);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('TrainerCRUD'));
+        }
+
+        return $this->render('SuperAdmin/CRUD/TrainerCRUD_register.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD/delete/{id}")
+     */
+    public function TrainerCRUD_delete(Request $request, $id){
+        $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($trainer);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+        return $this->redirect($this->generateUrl('TrainerCRUD'));
+    }
+
+    //  /************************ MEMEBER ************************/
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD", name="MemberCRUD", methods={"GET", "HEAD"})
+     */
+    public function Member_CRUD(Security $user){
+        $Member = $this->getDoctrine()->getRepository(Member::class)->findAll();
+
+        return $this->render('SuperAdmin/CRUD/MemberCRUD.html.twig',array(
+            'controller_name' => 'SuperAdminController_Member_CRUD',
+            'Members' => $Member,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD/show/{id}", name="Member_CRUD_Show")
+     */
+    public function Member_CRUD_Show($id, Security $user){
+        $Member = $this->getDoctrine()->getRepository(Member::class)->find($id);
+
+        return $this->render('SuperAdmin/CRUD/MemberCRUD_show.html.twig',array(
+            'controller_name' => 'SuperAdminController_Member_CRUD_SHOW',
+            'member' => $Member,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD/register", name="MemberCRUD_register")
+     */
+    public function Member_CRUD_Register(Request $requst, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $form = $this->createFormBuilder()
+            ->add('imie')
+            ->add('nazwisko')
+            ->add('email')
+            ->add('numer_kontaktowy')
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'Hasło'],
+                'second_options' => ['label' => 'Powtórz hasło']
+            ])
+            ->add('rejestruj', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success float-right'
+                ]
+            ])
+            ->getForm();
+
+        $form->handleRequest($requst);
+        if ($form->isSubmitted()) {
+            $data = $form->getData();
+
+            $member = new Member();
+            $member->setName($data['imie']);
+            $member->setSurname($data['nazwisko']);
+            $member->setEmail($data['email']);
+            $member->setNumber($data['numer_kontaktowy']);
+            $member->setPassword(
+                $passwordEncoder->encodePassword($member, $data['password'])
+            );
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($member);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('MemberCRUD'));
+        }
+
+        return $this->render('SuperAdmin/CRUD/MemberCRUD_register.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD/delete/{id}")
+     */
+    public function MemberCRUD_delete(Request $request, $id){
+        $member = $this->getDoctrine()->getRepository(Member::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($member);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+        return $this->redirect($this->generateUrl('MemberCRUD'));
+    }
+
 }

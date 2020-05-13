@@ -7,18 +7,25 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Member;
 use App\Entity\Training;
 use App\Entity\Courses;
-
+use App\Repository\MemberRepository;
 
 class MembersController extends AbstractController
 {
     /**
      * @Route("/members", name="members")
      */
-    public function index()
-    {
-        $members = $this->getDoctrine()->getRepository(Member::class)->findAll();
-        $trainings = $this->getDoctrine()->getRepository(Training::class)->findAll();
-        $courses = $this->getDoctrine()->getRepository(Courses::class)->findAll();
-        return $this->render('members/index.html.twig', array('members' => $members,'trainings' => $trainings, 'courses' => $courses));
-    }
+
+     public function members(MemberRepository $memberRepository)
+     {
+         $Smembers = $memberRepository->findMembers();
+
+         return $this->render('courses/members.html.twig', ['Smembers' => $Smembers]);
+     }
+
+    // public function index()
+    // {
+    //     $members = $this->getDoctrine()->getRepository(Member::class)->findAll();
+
+    //     return $this->render('courses/members.html.twig', array('members' => $members));
+    // }
 }

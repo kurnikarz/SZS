@@ -5,30 +5,30 @@
 {% block body %}
 {{ include('inc/navbarT.html.twig')}}
 
-{% if members %}
+{% if Smembers %}
 <h1>Members of course</h1>
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Number</th>
                 <th>Email</th>
-                <th>name</th>
-                <th>surname</th>
-                <th>number</th>
             </tr>
         </thead>
         <tbody>
-            {% for member in members %}
-                {% if member.id == course.id %}
+            {% for member in Smembers %}
+               {# {% if member.id == course.id %} #}
                     <tr>
-                        <td>{{ member.email }}</td>
-        
                         <td>{{ member.name }}</td>
+        
+                        <td>{{ member.surname }}</td>
     
-                        <td>{{ member.surname}}</td>
+                        <td>{{ member.number}}</td>
 
-                        <td>{{ member.number }}</td>
+                        <td>{{ member.email }}</td>
                     </tr>
-                    {% endif %}
+                   {# {% endif %} #}
             {% endfor %}
         </tbody>
     </table>

@@ -49,6 +49,11 @@ class Trainer implements UserInterface
      */
     private $number;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
     public function getId(): ?int
     {
         return $this->id;

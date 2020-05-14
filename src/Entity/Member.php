@@ -46,13 +46,13 @@ class Member implements UserInterface
     private $number;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Training", inversedBy="members")
+     * @ORM\OneToMany(targetEntity=MemberTraining::class, mappedBy="member")
      */
-    private $training;
+    private $memberTrainings;
 
     public function __construct()
     {
-        $this->training = new ArrayCollection();
+        $this->memberTrainings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,25 +163,31 @@ class Member implements UserInterface
     }
 
     /**
-     * @return Collection|training[]
+     * @return Collection|MemberTraining[]
      */
-    public function getTraining(): Collection
+    public function getMemberTrainings(): Collection
     {
-        return $this->training;
+        return $this->memberTrainings;
     }
 
-    public function addTraining(training $training): self
+    public function addMemberTraining(MemberTraining $memberTraining): self
     {
-        if (!$this->training->contains($training)) {
-            $this->training[] = $training;
+        if (!$this->memberTrainings->contains($memberTraining)) {
+            $this->memberTrainings[] = $memberTraining;
+            $memberTraining->setMember($this);
         }
 
         return $this;
     }
-    public function removeTraining(training $training): self
+
+    public function removeMemberTraining(MemberTraining $memberTraining): self
     {
-        if ($this->training->contains($training)) {
-            $this->training->removeElement($training);
+        if ($this->memberTrainings->contains($memberTraining)) {
+            $this->memberTrainings->removeElement($memberTraining);
+            // set the owning side to null (unless already changed)
+            if ($memberTraining->getMember() === $this) {
+                $memberTraining->setMember(null);
+            }
         }
 
         return $this;

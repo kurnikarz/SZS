@@ -49,18 +49,18 @@ class Training
     private $free;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Member", mappedBy="training")
-     */
-    private $members;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trainer", inversedBy="trainings")
      */
     private $trainer;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MemberTraining::class, mappedBy="training")
+     */
+    private $memberTrainings;
+
     public function __construct()
     {
-        $this->members = new ArrayCollection();
+        $this->memberTrainings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,34 +140,6 @@ class Training
         return $this;
     }
 
-    /**
-     * @return Collection|Member[]
-     */
-    public function getMembers(): Collection
-    {
-        return $this->members;
-    }
-
-    public function addMember(Member $member): self
-    {
-
-        if (!$this->members->contains($member)) {
-            $this->members[] = $member;
-            $member->addTraining($this);
-        }
-        return $this;
-    }
-
-    public function removeMember(Member $member): self
-    {
-        if ($this->members->contains($member)) {
-            $this->members->removeElement($member);
-            $member->removeTraining($this);
-        }
-
-        return $this;
-    }
-
     public function getTrainer(): ?trainer
     {
         return $this->trainer;
@@ -176,6 +148,37 @@ class Training
     public function setTrainer(?trainer $trainer): self
     {
         $this->trainer = $trainer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MemberTraining[]
+     */
+    public function getMemberTrainings(): Collection
+    {
+        return $this->memberTrainings;
+    }
+
+    public function addMemberTraining(MemberTraining $memberTraining): self
+    {
+        if (!$this->memberTrainings->contains($memberTraining)) {
+            $this->memberTrainings[] = $memberTraining;
+            $memberTraining->setTraining($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMemberTraining(MemberTraining $memberTraining): self
+    {
+        if ($this->memberTrainings->contains($memberTraining)) {
+            $this->memberTrainings->removeElement($memberTraining);
+            // set the owning side to null (unless already changed)
+            if ($memberTraining->getTraining() === $this) {
+                $memberTraining->setTraining(null);
+            }
+        }
 
         return $this;
     }

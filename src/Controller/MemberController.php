@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Member;
 #use Doctrine\DBAL\Types\TextType;
 #use http\Env\Request;
+use App\Entity\MemberTraining;
 use App\Entity\Training;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,7 +22,17 @@ class MemberController extends AbstractController
     {
         $username = $this->getUser()->getUsername();
         $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
-        $trainings = $member->getTraining();
+        $memberTraining = $this->getDoctrine()->getRepository(MemberTraining::class)->findBy(['member_id' => $member->getId()]);
+        //$trainings = $memberTraining[0]->getTraining();
+        $trainings = Array();
+        /*
+        foreach ($memberTraining as $i => $training) {
+            array_push($trainings, $memberTraining[$i]->getTraining());
+        }
+        */
+        for ($i=0;$i<count($memberTraining);$i++) {
+            array_push($trainings, $memberTraining[$i]->getTraining());
+        }
 
         $form = $this->createFormBuilder($member)
             ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Imię'])

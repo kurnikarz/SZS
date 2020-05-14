@@ -22,15 +22,10 @@ class MemberController extends AbstractController
     {
         $username = $this->getUser()->getUsername();
         $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
-        $memberTraining = $this->getDoctrine()->getRepository(MemberTraining::class)->findBy(['member_id' => $member->getId()]);
-        //$trainings = $memberTraining[0]->getTraining();
+        $memberTraining = $this->getDoctrine()->getRepository(MemberTraining::class)->findBy(['member' => $member->getId()]);
         $trainings = Array();
-        /*
+
         foreach ($memberTraining as $i => $training) {
-            array_push($trainings, $memberTraining[$i]->getTraining());
-        }
-        */
-        for ($i=0;$i<count($memberTraining);$i++) {
             array_push($trainings, $memberTraining[$i]->getTraining());
         }
 
@@ -70,8 +65,13 @@ class MemberController extends AbstractController
         $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
         $username = $this->getUser()->getUsername();
         $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
+        $memberTraining = $this->getDoctrine()->getRepository(MemberTraining::class)->findBy(['member' => $member->getId()]);
 
-        $member->removeTraining($training);
+        for ($i=0;$i<count($memberTraining);$i++){
+            if ($memberTraining[$i]->getTraining() == $training)
+                $member->removeMemberTraining($memberTraining[$i]);
+        }
+
         $entityManager->persist($member);
         $entityManager->flush();
         return $this->render('training/remove.html.twig');

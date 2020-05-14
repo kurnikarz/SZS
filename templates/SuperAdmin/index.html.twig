@@ -45,14 +45,14 @@
                 <p class="text-center">Trainer's</p>
                 <tr>
                     <th>Id.</th>
-                    <th>Name</th>
+                    <th>Username</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for trainer in GetTrainerPreview %}
                     <tr>
                         <td>{{ trainer.id }}</td>
-                        <td>{{ trainer.name }}</td>
+                        <td>{{ trainer.username }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

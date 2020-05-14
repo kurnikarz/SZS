@@ -3,8 +3,12 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-
+    {% include asset('inc/navbarSA.html.twig') %}
     <div class="container">
-        {{ form(form) }}
+        <div class="row">
+            <div class="col-md-6 mr-auto ml-auto mt-2 bg-light text-center">
+                 {{ form(form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

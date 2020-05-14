@@ -13,6 +13,7 @@
                 <thead>
                 <tr>
                     <th>Id.</th>
+                    <th>Username</th>
                     <th>Name</th>
                     <th>Surname</th>
                     <th>Email</th>
@@ -23,13 +24,14 @@
                 {% for trainer in Trainers %}
                     <tr>
                         <td>{{ trainer.id }}</td>
+                        <td>{{ trainer.username }}</td>
                         <td>{{ trainer.name }}</td>
                         <td>{{ trainer.surname }}</td>
                         <td>{{ trainer.email }}</td>
                         <td>{{ trainer.number }}</td>
                         <td>
                             <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD/show/'~ trainer.id) }}" class="btn btn-dark">Show</a>
-{#                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/delete/'~ trainer.id) }}" class="btn btn-info">EDIT</a>#}
+                            <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD/edit/'~ trainer.id) }}" class="btn btn-info">Edit</a>
                             <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD/delete/'~ trainer.id) }}" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>

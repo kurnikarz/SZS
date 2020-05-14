@@ -11,6 +11,7 @@ use App\Repository\TrainerRepository;
 use App\Repository\TrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -183,9 +184,10 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/TrainerCRUD/register", name="TrainerCRUD_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passEncoder)
+    public function register(Request $request, UserPasswordEncoderInterface $passEncoder,Security $user)
     {
         $form = $this->createFormBuilder()
+            ->add('username')
             ->add('name')
             ->add('surname')
             ->add('email')
@@ -208,6 +210,7 @@ class SuperAdminController extends AbstractController
             $data = $form->getData();
 
             $trainer = new Trainer();
+            $trainer->setUsername($data['username']);
             $trainer->setName($data['name']);
             $trainer->setSurname($data['surname']);
             $trainer->setEmail($data['email']);
@@ -224,7 +227,39 @@ class SuperAdminController extends AbstractController
         }
 
         return $this->render('SuperAdmin/CRUD/TrainerCRUD_register.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_TrainerCRUD_register',
+            'RootName' => $user->getUser()->getUsername(),
+        ]);
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD/edit/{id}", name="TrainerCRUD_edit")
+     */
+    public function TrainerCRUD_edit(Request $request, $id,Security $user){
+        $trainer = new Trainer();
+        $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($id);
+        $form = $this->createFormBuilder($trainer)
+            ->add('username', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Username'])
+            ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Name'])
+            ->add('surname', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Surname'])
+            ->add('number', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Number'])
+            ->add('email', TextType::class, [ 'attr' => [ 'class' => 'form-control']])
+            ->add('Save', SubmitType::class, [
+                'label' => 'Save',
+                'attr' => ['class' => 'btn btn-primary']
+            ])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('TrainerCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/TrainerCRUD_edit.html.twig', [
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_Member_edit',
+            'RootName' => $user->getUser()->getUsername(),
         ]);
     }
 
@@ -266,27 +301,27 @@ class SuperAdminController extends AbstractController
         return $this->render('SuperAdmin/CRUD/MemberCRUD_show.html.twig',array(
             'controller_name' => 'SuperAdminController_Member_CRUD_SHOW',
             'member' => $Member,
-            'RootName' => $user->getUser()->getUsername(),
+           'RootName' => $user->getUser()->getUsername(),
         ));
     }
 
     /**
      * @Route("SuperAdmin/crudSA/MemberCRUD/register", name="MemberCRUD_register")
      */
-    public function Member_CRUD_Register(Request $requst, UserPasswordEncoderInterface $passwordEncoder)
+    public function Member_CRUD_Register(Request $requst, UserPasswordEncoderInterface $passwordEncoder, Security $user)
     {
         $form = $this->createFormBuilder()
-            ->add('imie')
-            ->add('nazwisko')
+            ->add('name')
+            ->add('surname')
             ->add('email')
-            ->add('numer_kontaktowy')
+            ->add('phone_number')
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'required' => true,
-                'first_options' => ['label' => 'Hasło'],
-                'second_options' => ['label' => 'Powtórz hasło']
+                'first_options' => ['label' => 'Password'],
+                'second_options' => ['label' => 'Repeat password']
             ])
-            ->add('rejestruj', SubmitType::class, [
+            ->add('Register', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success float-right'
                 ]
@@ -298,10 +333,10 @@ class SuperAdminController extends AbstractController
             $data = $form->getData();
 
             $member = new Member();
-            $member->setName($data['imie']);
-            $member->setSurname($data['nazwisko']);
+            $member->setName($data['name']);
+            $member->setSurname($data['surname']);
             $member->setEmail($data['email']);
-            $member->setNumber($data['numer_kontaktowy']);
+            $member->setNumber($data['phone_number']);
             $member->setPassword(
                 $passwordEncoder->encodePassword($member, $data['password'])
             );
@@ -314,7 +349,9 @@ class SuperAdminController extends AbstractController
         }
 
         return $this->render('SuperAdmin/CRUD/MemberCRUD_register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_Member_register',
+            'RootName' => $user->getUser()->getUsername(),
         ]);
     }
 
@@ -331,6 +368,36 @@ class SuperAdminController extends AbstractController
         $response = new Response();
         $response->send();
         return $this->redirect($this->generateUrl('MemberCRUD'));
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD/edit/{id}", name="MemberCRUD_edit")
+     */
+    public function MemberCRUD_edit(Request $request, $id,Security $user){
+        $member = new Member();
+        $member = $this->getDoctrine()->getRepository(Member::class)->find($id);
+            $form = $this->createFormBuilder($member)
+                ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Imię'])
+                ->add('surname', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Nazwisko'])
+                ->add('number', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Numer telefonu'])
+                ->add('email', TextType::class, [ 'attr' => [ 'class' => 'form-control']])
+                ->add('zapisz', SubmitType::class, [
+                    'label' => 'Zapisz',
+                    'attr' => ['class' => 'btn btn-primary']
+                ])
+                ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('MemberCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/MemberCRUD_edit.html.twig', [
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_Member_edit',
+            'RootName' => $user->getUser()->getUsername(),
+        ]);
     }
 
 }

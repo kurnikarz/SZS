@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-sm-12">
-                                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/register') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Member</a>
+                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/register') }}" class="float-right text-center mt-2 btn btn-success mb-1">Add Member</a>
             </div>
             <table id="Members_table" class="table table-striped">
                 <thead>
@@ -28,8 +28,8 @@
                         <td>{{ member.email }}</td>
                         <td>{{ member.number }}</td>
                         <td>
-                            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/show}'~ member.id) }}" class="btn btn-dark">Show</a>
-                            {#                            <a href="{{ asset('SuperAdmin/crudSA/SACRUD/delete/'~ trainer.id) }}" class="btn btn-info">EDIT</a>#}
+                            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/show/'~ member.id) }}" class="btn btn-dark">Show</a>
+                            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/edit/'~ member.id) }}" class="btn btn-info">Edit</a>
                             <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD/delete/'~ member.id) }} "class="btn btn-danger" >Delete</a>
                         </td>
                     </tr>

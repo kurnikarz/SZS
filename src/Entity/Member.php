@@ -82,6 +82,9 @@ class Member implements UserInterface
         return (string) $this->email;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getRoles(): ?array
     {
         return array();
@@ -91,6 +94,9 @@ class Member implements UserInterface
     {
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getPassword(): ?string
     {
         return $this->password;

@@ -1,0 +1,62 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD : Member show{% endblock %}
+{% block body  %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row mt-2 ">
+            <div class="col-sm-6 bg-light m-auto text-center">
+                <h4>Szczegóły konta: <name_color class ="text-danger">{{ member.name }}</name_color></h4>
+            </div>
+        </div>
+        <div class="col-sm-6  ml-auto mr-auto mt-2 text-center">
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Id.</span>
+                </div>
+                <label  class="form-control">
+                    {{ member.id }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <label  class="form-control">
+                    {{ member.name }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Surname</span>
+                </div>
+                <label  class="form-control">
+                    {{ member.surname }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Email</span>
+                </div>
+                <label  class="form-control">
+                    {{ member.email }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Number</span>
+                </div>
+                <label  class="form-control">
+                    {{ member.number }}
+                </label>
+            </label>
+            <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="btn btn-info">Powrót</a>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

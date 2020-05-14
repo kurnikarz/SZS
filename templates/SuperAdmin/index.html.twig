@@ -58,7 +58,9 @@
                 </tbody>
             </table>
             <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
-            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+            <h5 class=" text-center">
+                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD') }}" class="text-warning">Zarządzaj</a>
+            </h5>
         </div>
         <!-- TRAINING MANAGER SECTION-->
         <div class="col-md-4 mt-1 bg-light">
@@ -136,7 +138,9 @@
             </table>
 
             <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalMembers }}</bold></p>
-            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+            <h5 class="text-center">
+                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="text-warning">Zarządzaj</a>
+            </h5>
         </div>
 
     </div>

@@ -60,6 +60,8 @@ class MemberRepository extends ServiceEntityRepository implements PasswordUpgrad
     {
         $fM = $this->createQueryBuilder('f')
             ->select('f.name','f.surname','f.number','f.email')
+            //->innerJoin('App\Entity\MemberTraining','m','App\Entity\Trainer','t' ,'App\Entity\Training', 'tr')
+            //->where('f.id = m.memberid')
             ->orderBy('f.surname')
             ->getQuery()
             ->getArrayResult();

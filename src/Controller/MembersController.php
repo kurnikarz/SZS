@@ -21,11 +21,9 @@ class MembersController extends AbstractController
      {
          $Smembers = $memberRepository->findMembers();
 
-         $member_training = $this->getDoctrine()->getRepository(MemberTraining::class)->findOneByTraining($id);
+         $member_training = $this->getDoctrine()->getRepository(MemberTraining::class)->find($id);
 
-         $training = $this->getDoctrine()->getRepository(Training::class)->findOneById($id); 
-
-         return $this->render('courses/members.html.twig', ['Smembers' => $Smembers, 'member_training' => $member_training, 'training'=> $training]);
+         return $this->render('courses/members.html.twig', ['Smembers' => $Smembers, 'member_training' => $member_training]);
      }
 
     // public function index()

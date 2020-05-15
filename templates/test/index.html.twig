@@ -11,18 +11,21 @@
                     <thead>
                     <tr>
                         <td>Training ID.</td>
-                        <td>Trainer ID.</td>
-                        <td>Trainer Name.</td>
+                        <td>Member ID.</td>
+                        <td>Member name</td>
+                        <td>Training ID</td>
                         <td>Training name</td>
+
                     </tr>
                     </thead>
                     <tbody>
-                    {% for t in test %}
+                    {% for get in GetMembercourse %}
                             <tr>
-                                <td>{{ t.id }}</td>
-                                <td>{{ t.trainer.id }}</td>
-                                <td>{{ t.trainer.name }}</td>
-                                <td>{{ t.name }}</td>
+                                <td>{{ get.id }}</td>
+                                <td>{{ get.member.id }}</td>
+                                <td>{{ get.member.name }}</td>
+                                <td>{{ get.training.id }}</td>
+                                <td>{{ get.training.name }}</td>
                             </tr>
                     {% endfor %}
                     </tbody>

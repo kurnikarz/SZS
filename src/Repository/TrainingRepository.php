@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+
 use App\Entity\Training;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -38,7 +39,14 @@ class TrainingRepository extends ServiceEntityRepository
         return $query;
 
     }
-
+    public function test()
+    {
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->innerJoin('App\Entity\Trainer','s','WITH','k.trainer = s.id')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Training[] Returns an array of Training objects
     //  */

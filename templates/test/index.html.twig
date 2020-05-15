@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3 class="bg-light mb-2">TEST</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Training ID.</td>
+                        <td>Trainer ID.</td>
+                        <td>Trainer Name.</td>
+                        <td>Training name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for t in test %}
+                            <tr>
+                                <td>{{ t.id }}</td>
+                                <td>{{ t.trainer.id }}</td>
+                                <td>{{ t.trainer.name }}</td>
+                                <td>{{ t.name }}</td>
+                            </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

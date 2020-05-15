@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\MemberTrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Member;
@@ -17,12 +18,20 @@ class MembersController extends AbstractController
      * @Route("/course/{id}", name="members")
      */
 
-     public function members(MemberRepository $memberRepository, $id)
+     public function members($id, MemberTrainingRepository $memberTrainingRepository )
      {
-         $Smembers = $memberRepository->findMembers($id);
+        //  $Smembers = $memberRepository->findMembers($id);
     
 
-         return $this->render('courses/members.html.twig', ['Smembers' => $Smembers]);
+        //  return $this->render('courses/members.html.twig', ['Smembers' => $Smembers]);
+
+         $training = $this->getDoctrine()->getRepository(Training::class)->findOneById($id);
+         $getMembercourse = $memberTrainingRepository->getCursemember($id);
+
+         return $this->render('courses/members.html.twig', [
+            'GetMembercourse' => $getMembercourse,
+             'training' => $training,
+         ]);
      }
 
     // public function index()

@@ -4,20 +4,20 @@
 
 {% block body %}
 {{ include('inc/navbarT.html.twig')}}
-
-{% if Smembers %}
-<h1>Members of course</h1>
+    <h2>Members of course ID:<x class="text-danger"> {{ training.id }} </x> Name:<x class="text-danger"> {{ training.name}}</x> </h2>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Number</th>
-                <th>Email</th>
+                <td>Training ID.</td>
+                <td>Member ID.</td>
+                <td>Member name</td>
+                <td>Training ID</td>
+                <td>Training name</td>
             </tr>
         </thead>
         <tbody>
-            {% for member in Smembers %}
+
+            {# {% for member in Smembers %}
                     <tr>
                         <td>{{ member.name }}</td>
 
@@ -27,10 +27,18 @@
 
                         <td>{{ member.email }}</td>
                     </tr>
-            {% endfor %}
+            {% endfor %} #}
+
+        {% for get in GetMembercourse %}
+            <tr>
+                <td>{{ get.id }}</td>
+                <td>{{ get.member.id }}</td>
+                <td>{{ get.member.name }}</td>
+                <td>{{ get.training.id }}</td>
+                <td>{{ get.training.name }}</td>
+            </tr>
+        {% endfor %}
+
         </tbody>
     </table>
-{% else %}
-    <h1>There are no members :(</h1>
-{% endif %}
 {% endblock %}

@@ -27,6 +27,28 @@ class MemberTrainingRepository extends ServiceEntityRepository
         ->setParameter('member', null);
     }
 
+    public function getCursemember($id){
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->innerJoin('App\Entity\Member','mem','WITH', 'k.member = mem.id')
+            ->innerJoin('App\Entity\Training','train','WITH', 'k.training = train.id')
+            ->where('train.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function test()
+    {
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->innerJoin('App\Entity\Trainer','s','WITH','k.trainer = s.id')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+
     // /**
     //  * @return MemberTraining[] Returns an array of MemberTraining objects
     //  */

@@ -18,7 +18,6 @@
         </thead>
         <tbody>
             {% for member in Smembers %}
-               {# {% if member_training == 2 %} #}
                     <tr>
                         <td>{{ member.name }}</td>
 
@@ -28,7 +27,6 @@
 
                         <td>{{ member.email }}</td>
                     </tr>
-               {# {% endif %} #}
             {% endfor %}
         </tbody>
     </table>

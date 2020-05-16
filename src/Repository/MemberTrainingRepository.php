@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Member;
 use App\Entity\MemberTraining;
+use App\Entity\Training;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,12 +21,29 @@ class MemberTrainingRepository extends ServiceEntityRepository
         parent::__construct($registry, MemberTraining::class);
     }
 
-    public function removeMemberTraining(){
+    /*
+    public function removeMemberTraining(Member $memberId, Training $trainingId){
         $qb = $this->createQueryBuilder('m')
-        ->delete('member_training')
-        ->where('m.member_id = :member')
-        ->setParameter('member', null);
+        ->delete('MemberTraining')
+        ->where('m.member = :member')
+            ->andWhere('m.training = :training')
+        ->setParameter('member', $memberId)
+        ->setParameter('training', $trainingId);
+        $qb->getFirstResult();
+        return $qb;
     }
+    */
+
+    public function removeMemberTraining($memberId, $trainingId){
+        $em = $this->getEntityManager();
+        //$query = $em->createQuery('DELETE FROM App\Entity\MemberTraining u WHERE u.member is null');
+        $query = $em->createQuery('DELETE FROM App\Entity\MemberTraining m WHERE m.member = :member AND m.training = :training');
+        $query->setParameter('member', $memberId);
+        $query->setParameter('training', $trainingId);
+        $query->getResult();
+        return $query;
+    }
+
 
     public function getCursemember($id){
         return $this->createQueryBuilder('k')

@@ -61,6 +61,7 @@ class SuperAdminController extends AbstractController
             'TotalTrainings' =>$TotalTrainings,
             'GetMembersPreview' => $GetMembersPreview,
             'TotalMembers' => $TotalMembers,
+            'version' => " ver. 18.05.2020 22:20",
         ));
     }
     /**
@@ -200,7 +201,7 @@ class SuperAdminController extends AbstractController
             ])
             ->add('register', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success'
+                    'class' => 'btn btn-success float-right'
                 ]
             ])
             ->getForm();
@@ -235,7 +236,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/TrainerCRUD/edit/{id}", name="TrainerCRUD_edit")
      */
-    public function TrainerCRUD_edit(Request $request, $id,Security $user){
+    public function TrainerCRUD_edit(Request $request, $id ,Security $user){
         $trainer = new Trainer();
         $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($id);
         $form = $this->createFormBuilder($trainer)
@@ -260,6 +261,7 @@ class SuperAdminController extends AbstractController
         }
         return $this->render('SuperAdmin/CRUD/TrainerCRUD_edit.html.twig', [
             'form' => $form->createView(),
+            'trainer' => $trainer,
             'controller_name' => 'SuperAdminController_Member_edit',
             'RootName' => $user->getUser()->getUsername(),
         ]);
@@ -379,13 +381,13 @@ class SuperAdminController extends AbstractController
         $member = new Member();
         $member = $this->getDoctrine()->getRepository(Member::class)->find($id);
             $form = $this->createFormBuilder($member)
-                ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Imię'])
-                ->add('surname', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Nazwisko'])
-                ->add('number', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Numer telefonu'])
+                ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Name'])
+                ->add('surname', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Surname'])
+                ->add('number', TextType::class, [ 'attr' => [ 'class' => 'form-control'], 'label' => 'Phone'])
                 ->add('email', TextType::class, [ 'attr' => [ 'class' => 'form-control']])
                 ->add('zapisz', SubmitType::class, [
-                    'label' => 'Zapisz',
-                    'attr' => ['class' => 'btn btn-primary']
+                    'label' => 'Save',
+                    'attr' => ['class' => 'btn btn-primary float-right']
                 ])
                 ->getForm();
         $form->handleRequest($request);
@@ -457,7 +459,7 @@ class SuperAdminController extends AbstractController
             ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'name'])
             ->add('zapisz', SubmitType::class, [
                 'label' => 'Zapisz',
-                'attr' => ['class' => 'btn btn-primary']
+                'attr' => ['class' => 'btn btn-primary float-right']
             ])
             ->getForm();
         $form->handleRequest($request);

@@ -11,11 +11,6 @@
                 'App\\Controller\\SearchController::searchBar'
             ))}}
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/szkolenia/new" class="btn btn-success">Dodaj szkolenie</a>
-            </div>
-        </div>
     </div>
     <br>
     {% if trainings %}
@@ -25,7 +20,9 @@
             <th scope="col">Nazwa</th>
             <th scope="col">Cena</th>
             <th scope="col">Dostępność</th>
+            <th scope="col">Ocena</th>
             <th scope="col">Szczegóły</th>
+            <th scope="col">Oceń szkolenie</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +36,13 @@
                     <td>{{ training.price }} PLN</td>
                     <td>Płatne</td>
                 {% endif %}
+                {% if training.rating %}
+                    <td>{{ training.rating}}/5</td>
+                {% else %}
+                    <td>brak ocen</td>
+                {% endif %}
                 <td><a href="/szkolenia/{{ training.id }}" class="btn btn-info">Szczegóły</a></td>
+                <td><a href="/szkolenia/ocen/{{ training.id }}" class="btn btn-warning">Oceń</a></td>
             </tr>
         {% endfor %}
         </tbody>

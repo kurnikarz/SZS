@@ -65,6 +65,19 @@
         </div>
 
         <div class="control-group row">
+            <label class="col-sm-3 control-label">Ocena</label>
+            <div class="col-sm-3">
+                <label class="form-control" style="width: 400px;">
+                    {% if training.rating %}
+                        {{training.rating}}/5
+                    {% else %}
+                        brak ocen
+                    {% endif %}
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group row">
             <label class="col-sm-3 control-label"><a class="btn btn-info" href="/szkolenia">Cofnij</a></label>
             <div class="col-sm-3">
                     <a class="btn btn-success" href="/szkolenia/join/{{ training.id }}">Zapisz się na szkolenie</a>

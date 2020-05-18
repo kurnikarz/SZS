@@ -5,25 +5,26 @@ use App\Entity\Member;
 use App\Entity\SuperAdmin;
 
 use App\Entity\Trainer;
+use App\Entity\Training;
 use App\Repository\MemberRepository;
 use App\Repository\SuperAdminRepository;
 use App\Repository\TrainerRepository;
 use App\Repository\TrainingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 // registerSA
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\Date;
 
 class SuperAdminController extends AbstractController
 {
@@ -143,7 +144,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/SACRUD/delete/{id}")
      */
-    public function delete(Request $request, $id){
+    public function delete($id){
         $roots = $this->getDoctrine()->getRepository(SuperAdmin::class)->find($id);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -245,7 +246,9 @@ class SuperAdminController extends AbstractController
             ->add('email', TextType::class, [ 'attr' => [ 'class' => 'form-control']])
             ->add('Save', SubmitType::class, [
                 'label' => 'Save',
-                'attr' => ['class' => 'btn btn-primary']
+                'attr' => [
+                    'class' => 'btn btn-primary float-right'
+                    ]
             ])
             ->getForm();
         $form->handleRequest($request);
@@ -265,7 +268,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/TrainerCRUD/delete/{id}")
      */
-    public function TrainerCRUD_delete(Request $request, $id){
+    public function TrainerCRUD_delete( $id){
         $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($id);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -357,7 +360,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/MemberCRUD/delete/{id}")
      */
-    public function MemberCRUD_delete(Request $request, $id){
+    public function MemberCRUD_delete( $id){
         $member = $this->getDoctrine()->getRepository(Member::class)->find($id);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -395,6 +398,79 @@ class SuperAdminController extends AbstractController
         return $this->render('SuperAdmin/CRUD/MemberCRUD_edit.html.twig', [
             'form' => $form->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
+            'RootName' => $user->getUser()->getUsername(),
+        ]);
+    }
+    //  /************************ Training ************************/
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD", name="TrainingCRUD", methods={"GET", "HEAD"})
+     */
+    public function trainingCRUD(Security $user, TrainingRepository $trainingRepository){
+        $Training = $this->getDoctrine()->getRepository(Training::class)->findAll();
+        $getTrainer = $trainingRepository->getTrainer();
+
+        return $this->render('SuperAdmin/CRUD/TrainingCRUD.html.twig',array(
+            'controller_name' => 'SuperAdminController_Training_CRUD',
+            'Trainer' => $getTrainer,
+            'Training' => $Training,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD/delete/{id}")
+     */
+    public function TrainingCRUD_delete($id){
+        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($training);
+        $entityManager->flush();
+
+        $response = new Response();
+        $response->send();
+        return $this->redirect($this->generateUrl('TrainingCRUD'));
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD/show/{id}", name="TrainingCRUD_show")
+     */
+    public function TrainingCRUD_Show($id, Security $user, TrainingRepository $trainingRepository){
+        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
+        $getTrainer = $trainingRepository->getTrainer();
+
+        return $this->render('SuperAdmin/CRUD/TrainingCRUD_show.html.twig',array(
+            'controller_name' => 'SuperAdminController_TrainingCRUD_SHOW',
+            'training' => $training,
+            'trainer' =>$getTrainer,
+            'RootName' => $user->getUser()->getUsername(),
+        ));
+    }
+
+
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD/edit/{id}", name="TrainingCRUD_edit")
+     */
+    public function TrainingCRUD_edit(Request $request, $id,Security $user, TrainingRepository $trainingRepository){
+        $trainer = $trainingRepository->getTrainer();
+        $training = new Member();
+        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
+        $form = $this->createFormBuilder($training)
+            ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'name'])
+            ->add('zapisz', SubmitType::class, [
+                'label' => 'Zapisz',
+                'attr' => ['class' => 'btn btn-primary']
+            ])
+            ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('TrainingCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/MemberCRUD_edit.html.twig', [
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_TrainingCRUD_edit',
+            'trainer' =>$trainer,
             'RootName' => $user->getUser()->getUsername(),
         ]);
     }

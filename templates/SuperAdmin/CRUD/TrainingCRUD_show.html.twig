@@ -1,0 +1,79 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}CRUD : Training {% endblock %}
+{% block body  %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row mt-2 ">
+            <div class="col-sm-6 bg-light m-auto text-center">
+                <h4>Szczegóły Szkolenia: <name_color class ="text-danger">{{ training.name }}</name_color></h4>
+            </div>
+        </div>
+        <div class="col-sm-8  ml-auto mr-auto mt-2 text-center">
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Id.</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.id }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Name</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.name }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Trainer</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.trainer.id }}
+                </label>
+                <label  class="form-control">
+                    {{ training.trainer.name }} {{ training.trainer.surname }}
+                </label>
+                <label  class="form-control">
+                    {{ training.trainer.number }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Description</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.description }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Date</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.startDate|date('d-m-Y H:i')  }}
+                </label>
+                <label  class="form-control">
+                    {{ training.endDate|date('d-m-Y H:i')  }}
+                </label>
+            </label>
+            <label class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Price</span>
+                </div>
+                <label  class="form-control">
+                    {{ training.price }}
+                </label>
+            </label>
+            <a href="{{ asset('SuperAdmin/crudSA/TrainingCRUD') }}" class="btn btn-info">Powrót</a>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -25,7 +25,9 @@
             <th scope="col">Nazwa</th>
             <th scope="col">Cena</th>
             <th scope="col">Dostępność</th>
+            <th scope="col">Ocena</th>
             <th scope="col">Szczegóły</th>
+            <th scope="col">Oceń szkolenie</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +41,9 @@
                     <td>{{ training.price }} PLN</td>
                     <td>Płatne</td>
                 {% endif %}
+                <td>{{ training.rating }}</td>
                 <td><a href="/szkolenia/{{ training.id }}" class="btn btn-info">Szczegóły</a></td>
+                <td><a href="/szkolenia/ocen/{{ training.id }}" class="btn btn-warning">Oceń</a></td>
             </tr>
         {% endfor %}
         </tbody>

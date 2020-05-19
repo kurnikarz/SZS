@@ -85,6 +85,42 @@ class MemberController extends AbstractController
     }
 
     /**
+     * @Route("/profil/zmienHaslo", name="change_password")
+     */
+    public function changePassword(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+        $username = $this->getUser()->getUsername();
+        $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
+
+        $formPass = $this->createFormBuilder()
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'Nowe hasło'],
+                'second_options' => ['label' => 'Powtórz nowe hasło']
+            ])
+            ->add('zapisz', SubmitType::class, [
+                'label' => 'Zapisz',
+                'attr' => ['class' => 'btn btn-primary']
+            ])
+            ->getForm();
+
+        $formPass->handleRequest($request);
+
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
+            $data = $formPass->getData();
+            $newPass = $passwordEncoder->encodePassword($member, $data['password']);
+            $this->getDoctrine()->getRepository(Member::class)->upgradePassword($member,$newPass);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return new Response("Hasło zostało pomyślnie zmienione !<br><a href='/profil'>Powrót</a>");
+        }
+        return $this->render('member/changePass.html.twig', [
+            'form' => $formPass->createView()
+        ]);
+    }
+
+    /**
      * @Route("/removeTraining/{id}", name="remove_training")
      * Method({"GET"})
      */

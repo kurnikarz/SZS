@@ -56,6 +56,15 @@ class TrainingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findTrainingByName($name) {
+        $query = $this->createQueryBuilder('t')
+            ->where('t.name LIKE :name')
+            ->setParameter('name','%'.$name.'%')
+            ->getQuery();
+
+        return $query->getResult();
+    }
     // /**
     //  * @return Training[] Returns an array of Training objects
     //  */

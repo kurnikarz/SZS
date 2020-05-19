@@ -16,15 +16,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 // registerSA
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Validator\Constraints\Date;
 
 class SuperAdminController extends AbstractController
 {
@@ -156,6 +153,45 @@ class SuperAdminController extends AbstractController
         $response->send();
         return $this->redirect($this->generateUrl('SA_CRUD'));
     }
+    /**
+     * @Route("SuperAdmin/crudSA/SA_CRUD/edit_password/{id}", name="SA_CRUD_edit_password")
+     */
+    public function SA_CRUD_edit_password(Request $request, Security $user, $id, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $SuperAdminAll = $this->getDoctrine()->getRepository(SuperAdmin::class)->findAll();
+        $SuperAdmin = $this->getDoctrine()->getRepository(SuperAdmin::class)->findOneBy(['id' => $id]);
+        $formPass = $this->createFormBuilder()
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'New Password'],
+                'second_options' => ['label' => 'Repeat new password']
+            ])
+            ->add('Change', SubmitType::class, [
+                'label' => 'Change',
+                'attr' => ['class' => 'btn btn-primary float-right']
+            ])
+            ->getForm();
+
+        $formPass->handleRequest($request);
+
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
+            $data = $formPass->getData();
+            $newPass = $passwordEncoder->encodePassword($SuperAdmin, $data['password']);
+            $this->getDoctrine()->getRepository(SuperAdmin::class)->upgradePassword($SuperAdmin,$newPass);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('SA_CRUD');
+        }
+
+        return $this->render('SuperAdmin/CRUD/Password.html.twig', [
+            'controller_name' => 'SuperAdminController_ROOT_edit_Password',
+            'RootName' => $user->getUser()->getUsername(),
+            'Root' => $SuperAdminAll,
+            'form' => $formPass->createView(),
+        ]);
+    }
 //  /************************ TRAINER ************************/
     /**
      * @Route("SuperAdmin/crudSA/TrainerCRUD", name="TrainerCRUD")
@@ -266,7 +302,6 @@ class SuperAdminController extends AbstractController
             'RootName' => $user->getUser()->getUsername(),
         ]);
     }
-
     /**
      * @Route("SuperAdmin/crudSA/TrainerCRUD/delete/{id}")
      */
@@ -280,6 +315,45 @@ class SuperAdminController extends AbstractController
         $response = new Response();
         $response->send();
         return $this->redirect($this->generateUrl('TrainerCRUD'));
+    }
+
+    /**
+     * @Route("SuperAdmin/crudSA/TrainerCRUD/edit_password/{id}", name="TrainerCRUD_edit_password")
+     */
+    public function TrainerCRUD_edit_password(Request $request, Security $user, $id, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $TrainerAll = $this->getDoctrine()->getRepository(Trainer::class)->findAll();
+        $trainer = $this->getDoctrine()->getRepository(Trainer::class)->findOneBy(['id' => $id]);
+        $formPass = $this->createFormBuilder()
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'New Password'],
+                'second_options' => ['label' => 'Repeat new password']
+            ])
+            ->add('Change', SubmitType::class, [
+                'label' => 'Change',
+                'attr' => ['class' => 'btn btn-primary float-right']
+            ])
+            ->getForm();
+
+        $formPass->handleRequest($request);
+
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
+            $data = $formPass->getData();
+            $newPass = $passwordEncoder->encodePassword($trainer, $data['password']);
+            $this->getDoctrine()->getRepository(Trainer::class)->upgradePassword($trainer,$newPass);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('TrainerCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/Password.html.twig', [
+            'controller_name' => 'SuperAdminController_Trainer_edit_Password',
+            'RootName' => $user->getUser()->getUsername(),
+            'trainer' => $TrainerAll,
+            'form' => $formPass->createView(),
+        ]);
     }
 
     //  /************************ MEMEBER ************************/
@@ -401,8 +475,49 @@ class SuperAdminController extends AbstractController
             'form' => $form->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
             'RootName' => $user->getUser()->getUsername(),
+            'member' => $member,
         ]);
     }
+    /**
+     * @Route("SuperAdmin/crudSA/MemberCRUD/edit_password/{id}", name="MemberCRUD_edit_password")
+     */
+
+    public function MemberCRUD_edit_password(Request $request, Security $user, $id, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $memberAll = $this->getDoctrine()->getRepository(Member::class)->findAll();
+        $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['id' => $id]);
+        $formPass = $this->createFormBuilder()
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'required' => true,
+                'first_options' => ['label' => 'New Password'],
+                'second_options' => ['label' => 'Repeat new password']
+            ])
+            ->add('Change', SubmitType::class, [
+                'label' => 'Change',
+                'attr' => ['class' => 'btn btn-primary float-right']
+            ])
+            ->getForm();
+
+        $formPass->handleRequest($request);
+
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
+            $data = $formPass->getData();
+            $newPass = $passwordEncoder->encodePassword($member, $data['password']);
+            $this->getDoctrine()->getRepository(Member::class)->upgradePassword($member,$newPass);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+
+            return $this->redirectToRoute('MemberCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/Password.html.twig', [
+            'form' => $formPass->createView(),
+            'member' => $memberAll,
+            'controller_name' => 'SuperAdminController_Member_edit_Password',
+            'RootName' => $user->getUser()->getUsername(),
+        ]);
+    }
+
     //  /************************ Training ************************/
     /**
      * @Route("SuperAdmin/crudSA/TrainingCRUD", name="TrainingCRUD", methods={"GET", "HEAD"})
@@ -446,14 +561,13 @@ class SuperAdminController extends AbstractController
             'RootName' => $user->getUser()->getUsername(),
         ));
     }
-
-
+                        #####POPRAWKA #######
     /**
      * @Route("SuperAdmin/crudSA/TrainingCRUD/edit/{id}", name="TrainingCRUD_edit")
      */
     public function TrainingCRUD_edit(Request $request, $id,Security $user, TrainingRepository $trainingRepository){
         $trainer = $trainingRepository->getTrainer();
-        $training = new Member();
+        $training = new Training();
         $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
         $form = $this->createFormBuilder($training)
             ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'name'])

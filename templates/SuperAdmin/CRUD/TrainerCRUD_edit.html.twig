@@ -9,6 +9,7 @@
             <div class="col-md-6 bg-light mr-auto ml-auto mt-2">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
+                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD/edit_password/'~ trainer.id) }}" class="btn btn-info float-right mr-2">Change Password</a>
                 {{ form_end(form) }}
             </div>
         </div>

@@ -3,26 +3,37 @@
 {% block title %}SZS{% endblock %}
 
 {% block body %}
-<div class="col-sm-12 bg-info">
-    <h3 class=" font-weight-bold text-center p-2">System zarządzania szkoleniami - dev</h3>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand text-info" href="{{ asset('/') }}">
+            Training management system
+        </a>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ asset('/') }}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <a href="{{ asset('loginSA') }}" class="btn btn-outline-danger" role="button">Root Login </a>
+                <a href="{{ asset('loginT') }}" class="btn btn-outline-info" role="button">Trainer Login </a>
+                <a href="{{ asset('loginMember') }}" class="btn btn-outline-info" role="button">Member Login </a>
+            </span>
+        </div>
+    </nav>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3 bg-warning p-2 mt-1 mr-auto ml-auto text-center">
-            <h4 >Root - Marcin</h4>
-            <a href="{{ asset('/loginSA') }}">SuperAdminController</a>
-        </div>
+        <div class="col-sm-12 mt-2 text-center">
+        ###################Jakiś Content ########################
 
-        <div class="col-sm-3 bg-warning p-2 mt-1 mr-auto ml-auto text-center">
-            <h4 >Trainer - Wiktor</h4>
-            <a href="{{ asset('/login') }}">Trainer Login</a>
-        </div>
-
-        <div class="col-sm-3 bg-warning p-2 mt-1 mr-auto ml-auto text-center">
-            <h4 >Member - Artur</h4>
-            <a href="{{ asset('/loginMember') }}">Member Login</a>
-            <a href="{{ asset('/register/member') }}">Member Register</a>
         </div>
     </div>
 </div>
+    <footer class="fixed-bottom page-footer font-small teal pt-1 bg-light ">
+        <div class="col-sm-12 text-center">
+            <p>Projekt zespołowy <a href="http://wmii.uwm.edu.pl//">WMiI 2020</a></p>
+        </div>
+        <div class="footer-copyright text-center py-1">
+            © 2020 Copyright: <a href="https://www.nettom.com/">Nettom</a> & FuriousRat
+        </div>
+    </footer>
 {% endblock %}

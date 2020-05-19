@@ -20,6 +20,11 @@ class MembersController extends AbstractController
 
      public function members($id, MemberTrainingRepository $memberTrainingRepository )
      {
+        //  $Smembers = $memberRepository->findMembers($id);
+    
+
+        //  return $this->render('courses/members.html.twig', ['Smembers' => $Smembers]);
+
          $training = $this->getDoctrine()->getRepository(Training::class)->findOneById($id);
          $getMembercourse = $memberTrainingRepository->getCursemember($id);
 

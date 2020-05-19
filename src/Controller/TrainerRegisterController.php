@@ -30,7 +30,7 @@ class TrainerRegisterController extends AbstractController
                     'first_options' => ['label' => 'password'],
                     'second_options' => ['label' => 'Confirm Password']
                 ])
-                ->add('register', SubmitType::class, [
+                ->add('Register', SubmitType::class, [
                     'attr' => [
                         'class' => 'btn btn-success'
                     ]
@@ -56,7 +56,7 @@ class TrainerRegisterController extends AbstractController
             $em->persist($trainer);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('loginT'));
+            return $this->redirect($this->generateUrl('app_login'));
         }
 
 

@@ -31,8 +31,9 @@ class RegisterMemberController extends AbstractController
                 'second_options' => ['label' => 'Powtórz hasło']
             ])
             ->add('rejestruj', SubmitType::class, [
+                'label' => 'Zarejestruj się !',
                 'attr' => [
-                    'class' => 'btn btn-success float-right'
+                    'class' => 'btn btn-success float-right',
                 ]
             ])
             ->getForm();

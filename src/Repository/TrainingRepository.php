@@ -39,6 +39,15 @@ class TrainingRepository extends ServiceEntityRepository
         return $query;
 
     }
+
+    public function getTrainer()
+    {
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->innerJoin('App\Entity\Trainer','s','WITH','k.trainer = s.id')
+            ->getQuery()
+            ->getResult();
+    }
     public function test()
     {
         return $this->createQueryBuilder('k')

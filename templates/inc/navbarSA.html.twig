@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm navbar-info bg-dark">
-  <a class="navbar-brand" href="{{ asset('/SuperAdmin') }}">HOME</a>
+  <a class="navbar-brand" href="{{ asset('/SuperAdmin') }}">SA HOME</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,11 +9,11 @@
         <a class="nav-link" href="{{ asset('/SuperAdmin/crudSA') }}">CRUD</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger" href="{{ asset('/SuperAdmin/registerSA') }}">Dodaj ROOTa</a>
+        <a class="nav-link text-danger" href="{{ asset('/SuperAdmin/registerSA') }}">Add ROOT</a>
       </li>
     </ul>
     <span class="navbar-text  text-danger font-weight-bold">
-      {{ controller_name }} : {{ RootName }} <a class="btn btn-warning btn-sm" href="{{ path('app_logout') }}">Wyloguj</a>
+      {{ controller_name }} : {{ RootName }} <a class="btn btn-warning btn-sm" href="{{ path('app_logout') }}">Logout</a>
     </span>
   </div>
 </nav>

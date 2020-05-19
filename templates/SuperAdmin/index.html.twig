@@ -7,12 +7,13 @@
 <div class="container mt-3">
     <div class="row">
         <div class="col-md-12 bg-light text-center m-auto p-1 ">
-            <p class="text-danger font-weight-bold h5"> Panel Root'a</p>
+            <p class="text-danger font-weight-bold h5"> Root panel </p>
             <p class="text-info">Jesteś zalogowany jako : <i class="text-danger font-weight-bold">{{ RootName }}</i>. Masz możliwość zarządzania całym systemem
             </p>
+            <pre class=" text-info font-small float-right">{{ version }}</pre>
         </div>
         <div class="col-md-12 bg-light mt-2">
-            <p class="text-center font-weight-bold h5">Zarządzaj</p>
+            <h4 class="text-center font-weight-bold text-info">Management</h4>
         </div>
         <!--ROOT SECTION -->
             <div class="col-md-4 mt-1 bg-light">
@@ -33,9 +34,10 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
+                <p class="text-info">
+                    Number of records in the database: <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
                 <h5 class=" text-center">
-                    <a href="{{ asset('SuperAdmin/crudSA/SACRUD') }}" class="text-warning">Zarządzaj</a>
+                    <a href="{{ asset('SuperAdmin/crudSA/SACRUD') }}" class="text-warning">Management</a>
                 </h5>
                 </div>
  <!--TRAINER SECTION -->
@@ -57,9 +59,10 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
+            <p class="text-info">
+                Number of records in the database: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
             <h5 class=" text-center">
-                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD') }}" class="text-warning">Zarządzaj</a>
+                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD') }}" class="text-warning">Management</a>
             </h5>
         </div>
         <!-- TRAINING MANAGER SECTION-->
@@ -82,8 +85,9 @@
                 </tbody>
             </table>
             <h4 class="text-danger size-16px text-center">Sekcja  Alberta</h4>
-            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> #####</bold></p>
-            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+            <p class="text-info">
+                Number of records in the database: <bold class="font-weight-bold"> #####</bold></p>
+            <h5><p class="text-center text-warning size-18px">Management</p></h5>
         </div>
 
         <!--TRAINING SECTION -->
@@ -107,8 +111,11 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalTrainings }}</bold></p>
-            <h5><p class="text-center text-warning size-18px">Zarządzaj</p></h5>
+            <p class="text-info">
+                Number of records in the database: <bold class="font-weight-bold"> {{ TotalTrainings }}</bold></p>
+            <h5 class=" text-center">
+                <a href="{{ asset('SuperAdmin/crudSA/TrainingCRUD') }}" class="text-warning">Management</a>
+            </h5>
         </div>
 
         <!-- MMEMBERS SECTION-->
@@ -137,9 +144,10 @@
                 </tbody>
             </table>
 
-            <p class="text-info">Ilość rekordów w bazie: <bold class="font-weight-bold"> {{ TotalMembers }}</bold></p>
+            <p class="text-info">
+                Number of records in the database: <bold class="font-weight-bold"> {{ TotalMembers }}</bold></p>
             <h5 class="text-center">
-                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="text-warning">Zarządzaj</a>
+                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="text-warning">Management</a>
             </h5>
         </div>
 

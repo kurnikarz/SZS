@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit trainer profile {{ trainer.id }}{% endblock %}
+{% block title %}Edytuj profil{% endblock %}
 
 {% block body %}
     {% include asset('inc/navbarSA.html.twig') %}
     <div class="container">
         <div class="row">
-            <div class="col-md-6 bg-light mr-auto ml-auto mt-2">
+            <div class="col-md-6 bg-light mr-auto ml-auto">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
                 {{ form_end(form) }}

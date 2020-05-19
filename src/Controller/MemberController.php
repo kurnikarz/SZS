@@ -67,12 +67,12 @@ class MemberController extends AbstractController
         $member = $this->getDoctrine()->getRepository(Member::class)->findOneBy(['email' => $username]);
         $memberTraining = $this->getDoctrine()->getRepository(MemberTraining::class)->findBy(['member' => $member->getId()]);
         $qb = $this->getDoctrine()->getRepository(MemberTraining::class);
+
         for ($i=0;$i<count($memberTraining);$i++){
             if ($memberTraining[$i]->getTraining() == $training) {
                 $member->removeMemberTraining($memberTraining[$i]);
-                $qb->removeMemberTraining();
+                $qb->removeMemberTraining($member, $training);
             }
-
         }
 
         $entityManager->persist($member);

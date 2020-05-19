@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add new training{% endblock %}
+
+{% block body %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mr-auto ml-auto mt-2 bg-light text-center">
+                {{ form(form) }}
+            </div>
+            <div class="col-md-4 mr-auto ml-auto mt-2 ml-2 bg-light text-center">
+                <h5 class="text-info">Available Trainer's</h5>
+                <table id="Root_Table" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id.</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                        </tr>
+                </thead>
+                <tbody>
+                {% for trainer in trainer %}
+                    <tr>
+                        <td>{{ trainer.id }}</td>
+                        <td>{{ trainer.name  }}</td>
+                        <td>{{ trainer.surname  }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

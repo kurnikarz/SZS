@@ -6,9 +6,7 @@
 {{ include('inc/navbarT.html.twig')}}
 
 {% if trainings %}
-<div class="text-center">
 <h1>Details of courses</h1>
-</div> <br>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -29,7 +27,7 @@
                         <td>{{ training.startdate|date('d-m-Y H:i')}}</td>
 
                         <td><a href="{{ asset('/course/'~ training.id) }}" type="button" class="btn btn-info">Show members</td>
-
+//
                     </tr>
                 {% endif %}
             {% endfor %}

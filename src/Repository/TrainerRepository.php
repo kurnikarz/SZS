@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\Trainer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Trainer|null find($id, $lockMode = null, $lockVersion = null)
@@ -32,6 +35,7 @@ class TrainerRepository extends ServiceEntityRepository
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
     public function CountTrainer(){
         $qb = $this->createQueryBuilder('p')
             ->select('count(p.id)')

@@ -4,8 +4,8 @@
 
 {% block body %}
 
-<div class="container-fluid">
-
+<div class="container">
+    {% include 'inc/navbarMember.html.twig' %}
     <div class="row">
         <div class="col-md-12">
             <h2>Dane podstawowe</h2>
@@ -13,6 +13,9 @@
             <br>
             {{ form(form) }}
             <br>
+            <h2>Zmiana hasła</h2>
+            <hr>
+            <a href="/profil/zmienHaslo" class="btn btn-success mb-3">Zmień hasło</a>
             <h2>Szkolenia na które się zapisałeś</h2>
             <hr>
             <br>

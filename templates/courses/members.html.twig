@@ -4,38 +4,25 @@
 
 {% block body %}
 {{ include('inc/navbarT.html.twig')}}
-    <h2>Members of course ID:<x class="text-danger"> {{ training.id }} </x> Name:<x class="text-danger"> {{ training.name}}</x> </h2>
+<div class="text-center">
+    <h1>Members of <x class=""> {{ training.name }} </x> </h1>
+    </div> <br>
     <table class="table table-striped">
         <thead>
             <tr>
-                <td>Training ID.</td>
-                <td>Member ID.</td>
-                <td>Member name</td>
-                <td>Training ID</td>
-                <td>Training name</td>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Number</th>
             </tr>
         </thead>
         <tbody>
-
-            {# {% for member in Smembers %}
-                    <tr>
-                        <td>{{ member.name }}</td>
-
-                        <td>{{ member.surname }}</td>
-
-                        <td>{{ member.number}}</td>
-
-                        <td>{{ member.email }}</td>
-                    </tr>
-            {% endfor %} #}
-
         {% for get in GetMembercourse %}
             <tr>
-                <td>{{ get.id }}</td>
-                <td>{{ get.member.id }}</td>
                 <td>{{ get.member.name }}</td>
-                <td>{{ get.training.id }}</td>
-                <td>{{ get.training.name }}</td>
+                <td>{{ get.member.surname }}</td>
+                <td>{{ get.member.email }}</td>
+                <td>{{ get.member.number }}</td>
             </tr>
         {% endfor %}
 

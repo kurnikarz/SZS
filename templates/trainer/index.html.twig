@@ -11,6 +11,22 @@
 
 
 <div class="container text-center">
- <h1>Hello {{ app.user.username }} </h1>
-</div>
+    <h1>Hello {{ app.user.name }} </h1><br>
+        <div class="text-center row">
+            {% if trainings %}
+                <h3>Your closest courses</h3>
+                    <div class="row">
+                        <table class="table table-striped col-md-4 text-center">
+                            <tbody>
+                                {% for training in trainings %}
+                                    {% if app.user.id == training.trainer.id %}
+                                        <td>{{ training.name }}</td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+        </div>
+        </div>
+            {% endif %}
+    </div>
 {% endblock %}

@@ -3,12 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\SuperAdmin;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
 
 /**
  * @method SuperAdmin|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,7 +36,6 @@ class SuperAdminRepository extends ServiceEntityRepository implements PasswordUp
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
     public function CountRoot(){
         $qb = $this->createQueryBuilder('p')
             ->select('count(p.id)')

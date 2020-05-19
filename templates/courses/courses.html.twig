@@ -27,7 +27,6 @@
                         <td>{{ training.startdate|date('d-m-Y H:i')}}</td>
 
                         <td><a href="{{ asset('/course/'~ training.id) }}" type="button" class="btn btn-info">Show members</td>
-
                     </tr>
                 {% endif %}
             {% endfor %}

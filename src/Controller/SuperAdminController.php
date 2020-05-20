@@ -566,7 +566,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/TrainingCRUD/add", name="TrainingCRUD_add")
      */
-    public function TrainingCRUD_edit(Request $request,Security $user, TrainingRepository $trainingRepository){
+    public function TrainingCRUD_add(Request $request,Security $user, TrainingRepository $trainingRepository){
         $form = $this->createFormBuilder()
             ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Training name'])
             ->add('description', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Description'])
@@ -618,6 +618,89 @@ class SuperAdminController extends AbstractController
             'controller_name' => 'SuperAdminController_TrainingCRUD_add',
             'RootName' => $user->getUser()->getUsername(),
         ]);
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD/edit/{id}", name="trainingCRUD_edit")
+     */
+    public function trainingCRUD_edit(Request $request, $id,Security $user){
+        $trainingALL = $this->getDoctrine()->getRepository(Training::class)->findAll();
+        $training = new Training();
+        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
+        $form = $this->createFormBuilder($training)
+            ->add('name', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Training name'])
+            ->add('description', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Description'])
+            ->add('price', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Price'])
+            ->add('free', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Free(0/1)'])
+            ->add('Edit', SubmitType::class, [
+                'label' => 'Save Edit',
+                'attr' => ['class' => 'btn btn-primary float-right']
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('TrainingCRUD');
+        }
+
+        return $this->render('SuperAdmin/CRUD/trainingCRUD_edit.html.twig', [
+            'form' => $form->createView(),
+            'controller_name' => 'SuperAdminController_Member_edit',
+            'RootName' => $user->getUser()->getUsername(),
+            'training' => $trainingALL,
+            'tr' =>$training,
+        ]);
+    }
+    /**
+     * @Route("SuperAdmin/crudSA/TrainingCRUD/edit_spec/{id}")
+     */
+    public function test(Request $request, $id,Security $user){
+
+        $training = new Training();
+        $training = $this->getDoctrine()->getRepository(Training::class)->find($id);
+
+        $form1 = $this->createFormBuilder()
+            ->add('trainer_id', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Trainer (id)'])
+            ->add('Data_start', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Start date'])
+            ->add('Data_end', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'End date'])
+            ->add('Edit', SubmitType::class, [
+                'label' => 'Edit',
+                'attr' => ['class' => 'btn btn-primary float-right']
+            ])
+            ->getForm();
+        $form1->handleRequest($request);
+
+        if ($form1->isSubmitted() && $form1->isValid()) {
+            $dane = $form1->getData();
+            $dateStringStart = $dane['Data_start'];
+            list($day, $month, $year) = explode('-', $dateStringStart);
+            $dateStart = new \DateTime();
+            $dateStart->setDate($year, $month, $day);
+
+            $dateStringEnd = $dane['Data_end'];
+            list($day, $month, $year) = explode('-', $dateStringEnd);
+            $dateEnd = new \DateTime();
+            $dateEnd->setDate($year, $month, $day);
+
+            $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($dane['trainer_id']);
+
+            $training->setTrainer($trainer);
+            $training->setStartDate($dateStart);
+            $training->setEndDate($dateEnd);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+            return $this->redirectToRoute('TrainingCRUD');
+        }
+        return $this->render('SuperAdmin/CRUD/TrainingCRUD_edit_spec.html.twig', [
+            'form1' => $form1->createView(),
+            'controller_name' => 'SuperAdminController_Member_edit',
+            'RootName' => $user->getUser()->getUsername(),
+
+        ]);
+
     }
 
 }

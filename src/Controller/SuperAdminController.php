@@ -644,7 +644,6 @@ class SuperAdminController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('TrainingCRUD');
         }
-
         return $this->render('SuperAdmin/CRUD/trainingCRUD_edit.html.twig', [
             'form' => $form->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
@@ -698,9 +697,6 @@ class SuperAdminController extends AbstractController
             'form1' => $form1->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
             'RootName' => $user->getUser()->getUsername(),
-
         ]);
-
     }
-
 }

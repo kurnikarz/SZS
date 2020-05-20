@@ -59,7 +59,7 @@ class SuperAdminController extends AbstractController
             'TotalTrainings' =>$TotalTrainings,
             'GetMembersPreview' => $GetMembersPreview,
             'TotalMembers' => $TotalMembers,
-            'version' => " ver. 19.05.2020 19:20",
+            'version' => " ver. 20.05.2020 10:30",
         ));
     }
     /**
@@ -655,7 +655,7 @@ class SuperAdminController extends AbstractController
     /**
      * @Route("SuperAdmin/crudSA/TrainingCRUD/edit_spec/{id}")
      */
-    public function test(Request $request, $id,Security $user){
+    public function trainingCRUD_edit_spec(Request $request, $id,Security $user){
 
         $training = new Training();
         $training = $this->getDoctrine()->getRepository(Training::class)->find($id);

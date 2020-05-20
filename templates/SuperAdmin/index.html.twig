@@ -37,7 +37,7 @@
                 <p class="text-info">
                     Number of records in the database: <bold class="font-weight-bold"> {{ TotalRots }}</bold></p>
                 <h5 class=" text-center">
-                    <a href="{{ asset('SuperAdmin/crudSA/SACRUD') }}" class="text-warning">Management</a>
+                    <a href="{{ asset('SuperAdmin/crudSA/SACRUD') }} " class="text-warning btn btn-outline-warning">Management</a>
                 </h5>
                 </div>
  <!--TRAINER SECTION -->
@@ -62,7 +62,7 @@
             <p class="text-info">
                 Number of records in the database: <bold class="font-weight-bold"> {{ TotalTrainers }}</bold></p>
             <h5 class=" text-center">
-                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD') }}" class="text-warning">Management</a>
+                <a href="{{ asset('SuperAdmin/crudSA/TrainerCRUD') }}" class="text-warning btn btn-outline-warning">Management</a>
             </h5>
         </div>
         <!-- TRAINING MANAGER SECTION-->
@@ -87,7 +87,9 @@
             <h4 class="text-danger size-16px text-center">Sekcja  Alberta</h4>
             <p class="text-info">
                 Number of records in the database: <bold class="font-weight-bold"> #####</bold></p>
-            <h5><p class="text-center text-warning size-18px">Management</p></h5>
+            <h5 class=" text-center">
+                <a href="{{ asset('/SuperAdmin') }}" class="text-warning btn btn-outline-warning">Management</a>
+            </h5>
         </div>
 
         <!--TRAINING SECTION -->
@@ -114,7 +116,7 @@
             <p class="text-info">
                 Number of records in the database: <bold class="font-weight-bold"> {{ TotalTrainings }}</bold></p>
             <h5 class=" text-center">
-                <a href="{{ asset('SuperAdmin/crudSA/TrainingCRUD') }}" class="text-warning">Management</a>
+                <a href="{{ asset('SuperAdmin/crudSA/TrainingCRUD') }}" class="text-warning btn btn-outline-warning">Management</a>
             </h5>
         </div>
 
@@ -147,7 +149,7 @@
             <p class="text-info">
                 Number of records in the database: <bold class="font-weight-bold"> {{ TotalMembers }}</bold></p>
             <h5 class="text-center">
-                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="text-warning">Management</a>
+                <a href="{{ asset('SuperAdmin/crudSA/MemberCRUD') }}" class="text-warning btn btn-outline-warning">Management</a>
             </h5>
         </div>
 

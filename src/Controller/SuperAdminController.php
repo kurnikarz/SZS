@@ -640,36 +640,11 @@ class SuperAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $dane = $form->getData();
-            $training = new Training();
-
-            $dateStringStart = $dane['Data_start'];
-            list($day, $month, $year) = explode('-', $dateStringStart);
-            $dateStart = new \DateTime();
-            $dateStart->setDate($year, $month, $day);
-
-            $dateStringEnd = $dane['Data_end'];
-            list($day, $month, $year) = explode('-', $dateStringEnd);
-            $dateEnd = new \DateTime();
-            $dateEnd->setDate($year, $month, $day);
-
-            $trainer = $this->getDoctrine()->getRepository(Trainer::class)->find($dane['trainer_id']);
-
-            $training->setName($dane['name']);
-            $training->setTrainer($trainer);
-            $training->setDescription($dane['description']);
-            $training->setPrice($dane['price']);
-            $training->setFree($dane['free']);
-            $training->setStartDate($dateStart);
-            $training->setEndDate($dateEnd);
-
-
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($training);
             $entityManager->flush();
             return $this->redirectToRoute('TrainingCRUD');
         }
-return $this->render('SuperAdmin/CRUD/trainingCRUD_edit.html.twig', [
+        return $this->render('SuperAdmin/CRUD/trainingCRUD_edit.html.twig', [
             'form' => $form->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
             'RootName' => $user->getUser()->getUsername(),
@@ -722,9 +697,6 @@ return $this->render('SuperAdmin/CRUD/trainingCRUD_edit.html.twig', [
             'form1' => $form1->createView(),
             'controller_name' => 'SuperAdminController_Member_edit',
             'RootName' => $user->getUser()->getUsername(),
-
         ]);
-
     }
-
 }

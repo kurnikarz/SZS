@@ -562,7 +562,7 @@ class SuperAdminController extends AbstractController
             'RootName' => $user->getUser()->getUsername(),
         ));
     }
-                        #####POPRAWKA #######
+
     /**
      * @Route("SuperAdmin/crudSA/TrainingCRUD/add", name="TrainingCRUD_add")
      */

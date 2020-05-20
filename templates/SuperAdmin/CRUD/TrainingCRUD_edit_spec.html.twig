@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Training Trainer and date{% endblock %}
+
+{% block body %}
+    {% include asset('inc/navbarSA.html.twig') %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 bg-light mr-auto ml-auto mt-2">
+                {{ form_start(form1) }}
+                {{ form_widget(form1) }}
+                {{ form_end(form1) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

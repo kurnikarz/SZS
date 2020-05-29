@@ -59,7 +59,7 @@ class SuperAdminController extends AbstractController
             'TotalTrainings' =>$TotalTrainings,
             'GetMembersPreview' => $GetMembersPreview,
             'TotalMembers' => $TotalMembers,
-            'version' => " ver. 20.05.2020 10:30",
+            'version' => " ver. 29.05.2020 19:30",
         ));
     }
     /**

@@ -63,7 +63,6 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Component\\Asset\\' => 24,
-            'Symfony\\Bundle\\WebProfilerBundle\\' => 33,
             'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\SecurityBundle\\' => 30,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
@@ -90,6 +89,7 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         ),
         'D' => 
         array (
+            'Doctrine\\SqlFormatter\\' => 22,
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\ORM\\' => 13,
             'Doctrine\\Migrations\\' => 20,
@@ -269,10 +269,6 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         array (
             0 => __DIR__ . '/..' . '/symfony/asset',
         ),
-        'Symfony\\Bundle\\WebProfilerBundle\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/web-profiler-bundle',
-        ),
         'Symfony\\Bundle\\TwigBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/twig-bundle',
@@ -340,6 +336,10 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         'Laminas\\Code\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-code/src',
+        ),
+        'Doctrine\\SqlFormatter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/sql-formatter/src',
         ),
         'Doctrine\\Persistence\\' => 
         array (
@@ -416,7 +416,6 @@ class ComposerStaticInit478d9766b7524e4b92a6e81d3664e096
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Locale' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Locale.php',
         'NumberFormatter' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/NumberFormatter.php',
-        'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

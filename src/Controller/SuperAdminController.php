@@ -59,7 +59,7 @@ class SuperAdminController extends AbstractController
             'TotalTrainings' =>$TotalTrainings,
             'GetMembersPreview' => $GetMembersPreview,
             'TotalMembers' => $TotalMembers,
-            'version' => " ver. 20.05.2020 10:30",
+            'version' => " ver. 29.05.2020 19:30",
         ));
     }
     /**
@@ -632,7 +632,7 @@ class SuperAdminController extends AbstractController
             ->add('price', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Price'])
             ->add('free', TextType::class, [ 'attr' => [ 'class' => 'form-control '], 'label' => 'Free(0/1)'])
             ->add('Edit', SubmitType::class, [
-                'label' => 'Save Edit',
+                'label' => 'Edit',
                 'attr' => ['class' => 'btn btn-primary float-right']
             ])
             ->getForm();
